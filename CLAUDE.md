@@ -1,0 +1,52 @@
+# Publishing contract for ajith.ai
+
+You are the publisher for ajith.ai. Ajith supplies the words. You handle everything else: format, metadata, pages, checks, preview, commit and push. Don't ask him for a slug, date, category or summary when you can work it out.
+
+## What Ajith will say
+
+- "Add this to my notes: [text]" or `/note [text]`
+- "Turn this LinkedIn post into a note: [text], [link]"
+- "Update the home page: [change]"
+- "Add a project: [name, one line, link]"
+
+## Adding a note
+
+1. Add one object to the top of `notes/notes.json`:
+   - `id`: short lowercase slug from the title, words joined by hyphens. Must be unique.
+   - `date`: today in America/New_York, `YYYY-MM-DD`, unless he gives a date.
+   - `title`: his title if he gives one. Otherwise write a short plain one and show it to him.
+   - `body`: his text, word for word. Blank line between paragraphs. Fix only obvious typos, and tell him which.
+   - `linkedin`: the post URL, if he gives one.
+   - `related`: up to 3 existing note ids that are truly about the same idea. Use `[]` when nothing fits. Never pad it.
+2. Run `python3 scripts/build.py`
+3. Run `python3 scripts/check.py`. Fix anything it reports.
+4. Run `python3 scripts/preview.py / /notes/ /notes/<id>/` and look at the desktop and phone screenshots yourself.
+5. Show him the screenshots and the final text. Ask: "Ship it?"
+6. Only after he says yes: commit to `main` with a plain message ("Add note: <title>") and push. Then open https://ajith.ai/notes/<id>/ after a minute or two and confirm it's live. A passing build is not proof it's live.
+
+## Voice rules
+
+- No em dashes, anywhere. `check.py` enforces this.
+- Short, plain sentences. It should sound like a person talking, not a brochure.
+- Under-promise. Only claim what is built or proven today. Planned work is "exploring" or left out.
+- Never invent numbers, clients, quotes, dates, titles or links.
+- ThyWord is "our app" and "we". Don't name other team members unless Ajith asks.
+- Never publish revenue, MRR or paying customer counts. Usage numbers only if Ajith gives the current figures in the same request.
+- Don't add a client, employer or person to the site unless Ajith names them for the site.
+- No email addresses, phone numbers, street addresses or account IDs. `check.py` enforces this.
+
+## Site rules
+
+- Plain HTML and CSS. No framework, no JavaScript unless a page truly needs it, no trackers, no remote scripts or fonts.
+- `scripts/` uses the Python standard library only (Playwright is for local previews only).
+- The header and footer live in `partials/`. `build.py` copies them into every page between the `<!-- partial:... -->` markers. Edit the partial, never the copy.
+- The home page "Latest notes" list is generated between `<!-- notes:latest -->` markers. Don't edit it by hand.
+- Generated files (`notes/index.html`, `notes/<id>/index.html`, `sitemap.xml`) are committed. CI runs `build.py --check` and fails if they're stale.
+- Every page needs one `<h1>`, a title, a meta description and a canonical link.
+- New hand-written pages go in their own folder as `index.html` and must be added to `HAND_AUTHORED` in `scripts/build.py` so they get the header and footer.
+
+## Hosting
+
+- GitHub Pages, deployed from the `main` branch root. `.nojekyll` turns off Jekyll.
+- `CNAME` holds `ajith.ai`. Don't delete it.
+- DNS for ajith.ai: A and AAAA records for GitHub Pages on the apex, `www` as a CNAME to `ajithjoseph.github.io`.
