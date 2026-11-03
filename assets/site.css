@@ -123,6 +123,14 @@ h1 {
 @media (max-width: 640px) { .diagram .dg-h { display: none; } .diagram .dg-v { display: block; } }
 .diagram figcaption { font: 400 0.8125rem/1.4 var(--mono); color: var(--muted); margin-top: 0.75rem; }
 .case h2 { margin-top: 2.5rem; }
+.chat { margin: 0 0 2.5rem; }
+.phone { max-width: 360px; margin: 0 auto; border: 1px solid var(--rule); border-radius: 28px; padding: 0.9rem 0.9rem 1.1rem; }
+.phone-head { margin: 0 0 0.8rem; padding-bottom: 0.7rem; border-bottom: 1px solid var(--rule); text-align: center; font: 400 0.75rem/1.4 var(--mono); color: var(--muted); }
+.phone-head strong { display: block; font: 600 1rem/1.3 var(--serif); color: var(--text); }
+.bubble { width: fit-content; max-width: 80%; margin: 0.35rem 0; padding: 0.5rem 0.8rem; border-radius: 18px; font-size: 0.9375rem; line-height: 1.4; }
+.bubble.in { background: var(--accent-soft); border-bottom-left-radius: 6px; }
+.bubble.out { margin-left: auto; background: var(--accent); color: var(--bg); border-bottom-right-radius: 6px; }
+.chat figcaption { margin-top: 0.75rem; text-align: center; font: 400 0.8125rem/1.4 var(--mono); color: var(--muted); }
 .links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; padding: 0; margin: 1.5rem 0 0; list-style: none; font: 500 0.875rem/1.4 var(--mono); }
 .thesis { color: var(--muted); }
 .thesis a { color: var(--text); }
@@ -161,6 +169,11 @@ h2 .num { color: var(--accent); }
   color: var(--muted);
 }
 .item p { margin: 0.4rem 0 0; }
+.item .one { margin: 0.5rem 0 0; font-size: 1.0625rem; }
+.points { margin: 0.6rem 0 0; padding-left: 1.15rem; color: var(--muted); font-size: 0.9375rem; line-height: 1.55; }
+.points li { margin: 0.3rem 0; padding-left: 0.2rem; }
+.points li::marker { color: var(--accent); }
+.points a { color: var(--text); }
 .meta { font: 400 0.8125rem/1.4 var(--mono); color: var(--muted); }
 
 .subhead {
@@ -176,6 +189,8 @@ h2 .num { color: var(--accent); }
 .note-list time { display: block; font: 400 0.8125rem/1.4 var(--mono); color: var(--muted); margin-bottom: 0.2rem; }
 .note-list a { font-family: var(--serif); font-size: 1.125rem; font-weight: 600; text-decoration: none; }
 .note-list p { margin: 0.25rem 0 0; color: var(--muted); font-size: 0.9375rem; }
+#notes .note-list li { padding: 1.4rem 0; }
+#notes .note-list time { margin-bottom: 0.4rem; }
 .more { display: inline-block; margin-top: 1.25rem; font: 500 0.875rem/1.4 var(--mono); }
 
 /* Notes and prose */
