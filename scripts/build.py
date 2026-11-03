@@ -27,7 +27,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SITE = "https://ajith.ai"
 NOTES_JSON = ROOT / "notes" / "notes.json"
 NOTES_DIR = ROOT / "notes"
-HAND_AUTHORED = ["index.html", "about/index.html", "404.html"]
+HAND_AUTHORED = ["index.html", "about/index.html", "thyword/index.html", "perfagents/index.html", "404.html"]
 LATEST_COUNT = 3
 ID_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 PARTIAL_RE = re.compile(r"(<!-- partial:(\w+) -->)(.*?)(<!-- /partial:\2 -->)", re.S)
@@ -152,7 +152,8 @@ def page(*, title: str, description: str, path: str, body: str, og_type: str = "
 <meta property="og:description" content="{esc(description)}">
 <meta property="og:url" content="{url}">
 <meta property="og:type" content="{og_type}">
-<meta name="twitter:card" content="summary">
+<!-- partial:social -->
+<!-- /partial:social -->
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/site.css">
@@ -233,7 +234,9 @@ def render_notes_index(notes: list[dict]) -> str:
 
 def render_sitemap(notes: list[dict]) -> str:
     latest = notes[0]["date"] if notes else None
-    urls = [("/", latest), ("/about/", None), ("/notes/", latest)]
+    urls = [("/", latest)]
+    urls += [(url_path(f), None) for f in HAND_AUTHORED if f not in ("index.html", "404.html")]
+    urls.append(("/notes/", latest))
     urls += [(f"/notes/{n['id']}/", n["date"]) for n in notes]
     rows = []
     for path, lastmod in urls:

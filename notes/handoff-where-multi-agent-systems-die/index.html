@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The handoff is where multi agent systems die · Ajith Joseph</title>
+<meta name="description" content="★ The handoff is where multi agent systems die ★">
+<link rel="canonical" href="https://ajith.ai/notes/handoff-where-multi-agent-systems-die/">
+<meta property="og:title" content="The handoff is where multi agent systems die · Ajith Joseph">
+<meta property="og:description" content="★ The handoff is where multi agent systems die ★">
+<meta property="og:url" content="https://ajith.ai/notes/handoff-where-multi-agent-systems-die/">
+<meta property="og:type" content="article">
+<!-- partial:social -->
+<meta property="og:image" content="https://ajith.ai/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ajith Joseph, AI and Cloud Principal">
+<meta name="twitter:card" content="summary_large_image">
+<!-- /partial:social -->
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<!-- partial:header -->
+<header class="site-header">
+  <a class="skip" href="#main">Skip to content</a>
+  <a class="wordmark" href="/">Ajith Joseph</a>
+  <nav aria-label="Main">
+    <a href="/#building">Building</a>
+    <a href="/#writing">Writing</a>
+    <a href="/notes/" aria-current="page">Notes</a>
+    <a href="/about/">About</a>
+  </nav>
+</header>
+<!-- /partial:header -->
+<main id="main">
+<article class="note">
+<p class="note-meta"><a href="/notes/">Notes</a> · <time datetime="2026-07-16">July 16, 2026</time></p>
+<h1>The handoff is where multi agent systems die</h1>
+<div class="prose">
+<p>★ The handoff is where multi agent systems die ★</p>
+<p>Multi agent systems fail in a very specific place, and it is not where people look.</p>
+<p>They do not fail inside an agent.</p>
+<p>Agent A does its job well.</p>
+<p>Agent B does its job well.</p>
+<p>The failure is in the handoff between them.</p>
+<p>The baton drop in the middle.</p>
+<p>Everyone romanticizes agent swarms right now.</p>
+<p>More agents, more autonomy, elegant diagrams full of boxes and arrows.</p>
+<p>Here is the part the diagram hides: every arrow between two boxes is a place where context can get mangled.</p>
+<p>More agents means more handoffs means more silent failure points.</p>
+<p>Complexity is not a feature.</p>
+<p>Every agent you add is a new thing that can lie to the next one.</p>
+<p>The hardest question in multi agent design is this: when the final output is wrong, which agent caused it?</p>
+<p>Without scoring the handoffs, the honest answer is "no idea, restart the whole thing."</p>
+<p>That is not engineering.</p>
+<p>That is superstition with a compute bill.</p>
+<p>And there is a subtle trap in how agents hand off.</p>
+<p>If they pass context in natural language, they are playing telephone.</p>
+<p>Small distortions compound down the chain.</p>
+<p>By the fourth agent, the original intent is gone, and no single agent did anything obviously wrong.</p>
+<p>The industry got very good at tracing what happened between agents.</p>
+<p>Tracing shows you the path.</p>
+<p>It does not tell you if the path was any good.</p>
+<p>Those are different jobs.</p>
+<p>Grading the handoff is the one that is still missing, and it is the one that matters for anything with money or compliance on the line.</p>
+<p>My rule: a single agent that works beats a 5 agent architecture that looks impressive on a slide.</p>
+<p>Add agents when one genuinely cannot do the job.</p>
+<p>Not because orchestration looks smart.</p>
+<p>If you run multi agent systems in production, where do yours actually break?</p>
+</div>
+<p class="origin"><a href="https://www.linkedin.com/feed/update/urn:li:activity:7483483075272671232/" target="_blank" rel="noopener">Also on LinkedIn</a></p>
+</article>
+</main>
+<!-- partial:footer -->
+<footer class="site-footer">
+  <p>© 2026 Ajith Joseph · Jacksonville, Florida</p>
+  <p><a href="https://www.linkedin.com/in/theajithjoseph/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/ajithjoseph" target="_blank" rel="noopener">GitHub</a></p>
+</footer>
+<!-- /partial:footer -->
+</body>
+</html>

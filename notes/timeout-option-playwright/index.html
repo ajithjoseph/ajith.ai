@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Timeout option in Playwright. · Ajith Joseph</title>
+<meta name="description" content="Timeout option in Playwright.">
+<link rel="canonical" href="https://ajith.ai/notes/timeout-option-playwright/">
+<meta property="og:title" content="Timeout option in Playwright. · Ajith Joseph">
+<meta property="og:description" content="Timeout option in Playwright.">
+<meta property="og:url" content="https://ajith.ai/notes/timeout-option-playwright/">
+<meta property="og:type" content="article">
+<!-- partial:social -->
+<meta property="og:image" content="https://ajith.ai/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ajith Joseph, AI and Cloud Principal">
+<meta name="twitter:card" content="summary_large_image">
+<!-- /partial:social -->
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<!-- partial:header -->
+<header class="site-header">
+  <a class="skip" href="#main">Skip to content</a>
+  <a class="wordmark" href="/">Ajith Joseph</a>
+  <nav aria-label="Main">
+    <a href="/#building">Building</a>
+    <a href="/#writing">Writing</a>
+    <a href="/notes/" aria-current="page">Notes</a>
+    <a href="/about/">About</a>
+  </nav>
+</header>
+<!-- /partial:header -->
+<main id="main">
+<article class="note">
+<p class="note-meta"><a href="/notes/">Notes</a> · <time datetime="2025-01-31">January 31, 2025</time></p>
+<h1>Timeout option in Playwright.</h1>
+<div class="prose">
+<p>Timeout option in Playwright.</p>
+<p>The new timeout option in the latest release of Playwright V1.50 allows the step to fail individually. This is really going to be one of the most used features in Playwright</p>
+<p>test('some test', async ({ page }) =&gt; {<br>
+ await test.step('a step', async () =&gt; {<br>
+ // This step can time out separately from the test<br>
+ }, { timeout: 1000 });<br>
+});</p>
+<p>Full Release Notes:<br>
+https://lnkd.in/eYauKRVM</p>
+</div>
+<p class="origin"><a href="https://www.linkedin.com/feed/update/urn:li:activity:7291105499171729408/" target="_blank" rel="noopener">Also on LinkedIn</a></p>
+</article>
+</main>
+<!-- partial:footer -->
+<footer class="site-footer">
+  <p>© 2026 Ajith Joseph · Jacksonville, Florida</p>
+  <p><a href="https://www.linkedin.com/in/theajithjoseph/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/ajithjoseph" target="_blank" rel="noopener">GitHub</a></p>
+</footer>
+<!-- /partial:footer -->
+</body>
+</html>
