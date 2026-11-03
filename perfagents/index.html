@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PerfAgents · Ajith Joseph</title>
+<meta name="description" content="PerfAgents was a synthetic monitoring platform Ajith Joseph founded in 2020. It ran teams' existing browser tests as monitors from AWS regions around the world. Testing Mavens acquired the platform in April 2025.">
+<link rel="canonical" href="https://ajith.ai/perfagents/">
+<meta property="og:title" content="PerfAgents · Ajith Joseph">
+<meta property="og:description" content="A synthetic monitoring platform that ran teams' existing browser tests as monitors from AWS regions around the world. Acquired by Testing Mavens in April 2025.">
+<meta property="og:url" content="https://ajith.ai/perfagents/">
+<meta property="og:type" content="article">
+<!-- partial:social -->
+<meta property="og:image" content="https://ajith.ai/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ajith Joseph, AI and Cloud Principal">
+<meta name="twitter:card" content="summary_large_image">
+<!-- /partial:social -->
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<!-- partial:header -->
+<header class="site-header">
+  <a class="skip" href="#main">Skip to content</a>
+  <a class="wordmark" href="/">Ajith Joseph</a>
+  <nav aria-label="Main">
+    <a href="/#building">Building</a>
+    <a href="/#writing">Writing</a>
+    <a href="/notes/">Notes</a>
+    <a href="/about/">About</a>
+  </nav>
+</header>
+<!-- /partial:header -->
+<main id="main" class="case">
+<h1>PerfAgents</h1>
+<p class="case-lede">A synthetic monitoring platform. You brought the browser tests you already had, and we ran them as monitors from around the world, every few minutes, and woke up the right person when something broke.</p>
+<ul class="facts">
+  <li>Founder</li>
+  <li>2020 to 2025</li>
+  <li>About 20 people at peak, US and India</li>
+  <li>Acquired by Testing Mavens, April 2025</li>
+</ul>
+
+<!-- diagram:start -->
+<figure class="diagram">
+  <svg class="dg dg-h" viewBox="0 0 680 250" role="img" aria-label="PerfAgents flow: your tests go to the orchestrator, which runs them on runners in AWS regions against your app; results feed alerts and dashboards.">
+  <defs><marker id="arr-h" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0 L10 5 L0 10 z"/></marker></defs>
+  <rect class="b" x="0" y="10" width="140" height="84" rx="10"/>
+    <text class="t" x="70.0" y="36" text-anchor="middle">Your tests</text>
+    <text class="s" x="70.0" y="55" text-anchor="middle">Playwright, Cypress,</text>
+    <text class="s" x="70.0" y="71" text-anchor="middle">Selenium, Puppeteer</text>
+  <rect class="b" x="180" y="10" width="140" height="84" rx="10"/>
+    <text class="t" x="250.0" y="36" text-anchor="middle">Orchestrator</text>
+    <text class="s" x="250.0" y="55" text-anchor="middle">schedules every run,</text>
+    <text class="s" x="250.0" y="71" text-anchor="middle">per customer</text>
+  <rect class="b" x="360" y="10" width="140" height="84" rx="10"/>
+    <text class="t" x="430.0" y="36" text-anchor="middle">Runners</text>
+    <text class="s" x="430.0" y="55" text-anchor="middle">AWS regions,</text>
+    <text class="s" x="430.0" y="71" text-anchor="middle">Kubernetes or Lambda</text>
+  <rect class="b" x="540" y="10" width="140" height="84" rx="10"/>
+    <text class="t" x="610.0" y="36" text-anchor="middle">Your app</text>
+    <text class="s" x="610.0" y="55" text-anchor="middle">the real user path,</text>
+    <text class="s" x="610.0" y="71" text-anchor="middle">the real APIs</text>
+  <path class="a" d="M140 52 L178 52" marker-end="url(#arr-h)"/>
+  <path class="a" d="M320 52 L358 52" marker-end="url(#arr-h)"/>
+  <path class="a" d="M500 52 L538 52" marker-end="url(#arr-h)"/>
+  <rect class="b" x="360" y="156" width="140" height="84" rx="10"/>
+    <text class="t" x="430.0" y="182" text-anchor="middle">Results</text>
+    <text class="s" x="430.0" y="201" text-anchor="middle">timings, logs,</text>
+    <text class="s" x="430.0" y="217" text-anchor="middle">screenshots</text>
+  <rect class="b" x="180" y="156" width="140" height="84" rx="10"/>
+    <text class="t" x="250.0" y="182" text-anchor="middle">Alerts</text>
+    <text class="s" x="250.0" y="201" text-anchor="middle">the owner gets paged,</text>
+    <text class="s" x="250.0" y="217" text-anchor="middle">dashboards update</text>
+  <path class="a" d="M430.0 94 L430.0 154" marker-end="url(#arr-h)"/>
+  <path class="a" d="M360 198 L322 198" marker-end="url(#arr-h)"/>
+  </svg>
+  <svg class="dg dg-v" viewBox="0 0 320 504" role="img" aria-label="PerfAgents flow, top to bottom: your tests, orchestrator, runners in AWS regions hitting your app, results, alerts.">
+  <defs><marker id="arr-v" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0 L10 5 L0 10 z"/></marker></defs>
+  <rect class="b" x="30" y="5" width="260" height="78" rx="10"/>
+    <text class="t" x="160.0" y="31" text-anchor="middle">Your tests</text>
+    <text class="s" x="160.0" y="50" text-anchor="middle">Playwright, Cypress, Selenium, Puppeteer</text>
+  <rect class="b" x="30" y="109" width="260" height="78" rx="10"/>
+    <text class="t" x="160.0" y="135" text-anchor="middle">Orchestrator</text>
+    <text class="s" x="160.0" y="154" text-anchor="middle">schedules every run, per customer</text>
+  <path class="a" d="M160 83 L160 107" marker-end="url(#arr-v)"/>
+  <rect class="b" x="30" y="213" width="260" height="78" rx="10"/>
+    <text class="t" x="160.0" y="239" text-anchor="middle">Runners in AWS regions</text>
+    <text class="s" x="160.0" y="258" text-anchor="middle">walk the real user path in your app</text>
+  <path class="a" d="M160 187 L160 211" marker-end="url(#arr-v)"/>
+  <rect class="b" x="30" y="317" width="260" height="78" rx="10"/>
+    <text class="t" x="160.0" y="343" text-anchor="middle">Results</text>
+    <text class="s" x="160.0" y="362" text-anchor="middle">timings, logs, screenshots</text>
+  <path class="a" d="M160 291 L160 315" marker-end="url(#arr-v)"/>
+  <rect class="b" x="30" y="421" width="260" height="78" rx="10"/>
+    <text class="t" x="160.0" y="447" text-anchor="middle">Alerts</text>
+    <text class="s" x="160.0" y="466" text-anchor="middle">the owner gets paged, dashboards update</text>
+  <path class="a" d="M160 395 L160 419" marker-end="url(#arr-v)"/>
+  </svg>
+  <figcaption>How a PerfAgents monitor ran, simplified.</figcaption>
+</figure>
+<!-- diagram:end -->
+
+<div class="prose">
+  <h2>What it did</h2>
+  <p>Most teams already had Playwright, Cypress, Selenium or Puppeteer scripts for testing. PerfAgents ran those same scripts on a schedule, from AWS regions around the world, against production. Not a ping to the homepage. The real user path, hitting the real APIs.</p>
+  <p>When a step got slow or failed, the alert went to the engineer who owned it, before customers noticed. Scripts could live in a team's GitHub repo, and runs could be triggered from CI/CD through the API.</p>
+
+  <h2>Who used it</h2>
+  <p>One of our customers was a fintech whose components sat inside the checkout flow of major US retailers such as Nordstrom and Lululemon. Our nodes walked that checkout path from Frankfurt, Singapore and Virginia, every few minutes.</p>
+
+  <h2>How it was built</h2>
+  <p>The platform, PerfAgents Uncloud, was multi-tenant. Each customer got their own subdomain, routed by a load balancer to an environment of its own. Most services were Node.js and TypeScript, with some Java and Spring Boot. I wrote the core orchestration service and chose Lambda or Kubernetes for each workload, with KEDA and Karpenter scaling the cluster. It was listed on AWS Marketplace.</p>
+  <p>At its peak it ran about 10 million monitor executions a month at 99.99% availability.</p>
+
+  <h2>The team and the exit</h2>
+  <p>We bootstrapped it, with no outside funding, and grew to about 20 people across the US and India. Testing Mavens acquired the platform in April 2025.</p>
+
+  <h2>What I learned</h2>
+  <p>Enterprises don't buy features. They buy the ability to sleep at night. Not once did a feature list close a deal. What closed deals was a fast, convincing answer to one question: what happens when your thing breaks at 3am.</p>
+</div>
+
+<ul class="links">
+  <li><a href="/notes/valuable-learning-building-perfagents-sell-sleep/">Sell the sleep, not the software</a></li>
+  <li><a href="/notes/problem-invisibility/">The problem of invisibility</a></li>
+</ul>
+</main>
+<!-- partial:footer -->
+<footer class="site-footer">
+  <p>© 2026 Ajith Joseph · Jacksonville, Florida</p>
+  <p><a href="https://www.linkedin.com/in/theajithjoseph/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/ajithjoseph" target="_blank" rel="noopener">GitHub</a></p>
+</footer>
+<!-- /partial:footer -->
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4 gates every PR passes through. · Ajith Joseph</title>
+<meta name="description" content="4 gates every PR passes through. We&#x27;ve only automated 2.">
+<link rel="canonical" href="https://ajith.ai/notes/4-gates-every-pr-passes-through/">
+<meta property="og:title" content="4 gates every PR passes through. · Ajith Joseph">
+<meta property="og:description" content="4 gates every PR passes through. We&#x27;ve only automated 2.">
+<meta property="og:url" content="https://ajith.ai/notes/4-gates-every-pr-passes-through/">
+<meta property="og:type" content="article">
+<!-- partial:social -->
+<meta property="og:image" content="https://ajith.ai/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ajith Joseph, AI and Cloud Principal">
+<meta name="twitter:card" content="summary_large_image">
+<!-- /partial:social -->
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<!-- partial:header -->
+<header class="site-header">
+  <a class="skip" href="#main">Skip to content</a>
+  <a class="wordmark" href="/">Ajith Joseph</a>
+  <nav aria-label="Main">
+    <a href="/#building">Building</a>
+    <a href="/#writing">Writing</a>
+    <a href="/notes/" aria-current="page">Notes</a>
+    <a href="/about/">About</a>
+  </nav>
+</header>
+<!-- /partial:header -->
+<main id="main">
+<article class="note">
+<p class="note-meta"><a href="/notes/">Notes</a> · <time datetime="2026-08-13">August 13, 2026</time></p>
+<h1>4 gates every PR passes through.</h1>
+<div class="prose">
+<p>4 gates every PR passes through. We've only automated 2.</p>
+<p> Gate 1. Does the code work.<br>
+ Gate 2. Is the code clean.<br>
+ Gate 3. Will it break in production.<br>
+ Gate 4. Will it spike the bill, cloud or model.</p>
+<p>All good, merge. Not all good, don't merge.</p>
+<p>Gates 1 and 2 are solved. Like this:</p>
+<blockquote><p>CI runs the tests.<br>
+Linters and now LLM reviewers handle the second one, and honestly they do it better than most of us humans do. Especially if it's 5pm on a Friday. :-)</p></blockquote>
+<p>Gates 3 and 4 are where it falls apart. Like this:</p>
+<blockquote><p>The standard answer is load testing and staging.<br>
+I've built those environments for a few teams and I'll say the quiet part: they run after the merge, on a schedule, against data that doesn't look like production. By the time they flag something, the commit is buried under 40 others and nobody can point at the one that did it.</p></blockquote>
+<p>So....</p>
+<p>Gate 3 becomes an incident!</p>
+<p>Gate 4 becomes a finance meeting in month 2!</p>
+<p>That was survivable when a team shipped 15 PRs a week.</p>
+<p>At 100s of PRs a week, with a lot of them model-authored, it isn't survivable.</p>
+<p>The gate didn't get weaker.</p>
+<p>The volume went up and the gate stayed exactly where it was.</p>
+<p>What gates 3 and 4 actually need is the same shape as gates 1 and 2.</p>
+<blockquote><p>Automatic.<br>
+On the diff.<br>
+Blocking. Before the merge, not after.</p></blockquote>
+<p>Nobody would ship without CI.</p>
+<p>We ship without this every day.</p>
+<p>I've spent a while now convinced that's the wrong tradeoff, and I've stopped just complaining about it.</p>
+</div>
+<p class="origin"><a href="https://www.linkedin.com/feed/update/urn:li:activity:7493629945869680640/" target="_blank" rel="noopener">Also on LinkedIn</a></p>
+</article>
+</main>
+<!-- partial:footer -->
+<footer class="site-footer">
+  <p>© 2026 Ajith Joseph · Jacksonville, Florida</p>
+  <p><a href="https://www.linkedin.com/in/theajithjoseph/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/ajithjoseph" target="_blank" rel="noopener">GitHub</a></p>
+</footer>
+<!-- /partial:footer -->
+</body>
+</html>
