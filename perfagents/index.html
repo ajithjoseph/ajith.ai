@@ -114,7 +114,6 @@
 
   <h2>How it was built</h2>
   <p>The platform, PerfAgents Uncloud, was multi-tenant. Each customer got their own subdomain, routed by a load balancer to an environment of its own. Most services were Node.js and TypeScript, with some Java and Spring Boot. I wrote the core orchestration service and chose Lambda or Kubernetes for each workload, with KEDA and Karpenter scaling the cluster. It was listed on AWS Marketplace.</p>
-  <p>At its peak it ran about 10 million monitor executions a month at 99.99% availability.</p>
 
   <h2>The team and the exit</h2>
   <p>We bootstrapped it, with no outside funding, and grew to about 20 people across the US and India. Testing Mavens acquired the platform in April 2025.</p>
