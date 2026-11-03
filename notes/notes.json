@@ -1,9 +1,482 @@
 [
   {
+    "id": "karpathy-called-2023-hottest-new-programming",
+    "date": "2026-10-26",
+    "title": "Karpathy called it in 2023: \"The hottest new programming language is…",
+    "body": "Karpathy called it in 2023: \"The hottest new programming language is English.\"\n\nThree years later, I feel it every single day.\n\nI started my career writing Java.\n\nToday most of my build time is spent writing English.\n\n> System prompts.\n> Specs.\n> Instructions for agents.\n\nHere's what surprised me.\n\nMy English is getting better. Not fancier. It's getting clearer.\n\nVague words give vague output.\n\nPrecise words give working software.\n\nThe edge isn't knowing more syntax anymore.\n\nIt's knowing exactly what you want and saying it plainly.\n\nIs AI making you a better writer too?",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7520567579418066944/",
+    "related": []
+  },
+  {
+    "id": "anthropic-just-launched-claude-duet",
+    "date": "2026-10-23",
+    "title": "Anthropic just launched Claude Duet.",
+    "body": "Anthropic just launched Claude Duet.\n\nClaude waited for you to type. Duet doesn't wait.\n\nIt watches the apps you connect, briefs you every morning on what needs you, and gets work done while you are away. When it needs a decision, it messages you. Before anything risky like sending a message, paying someone or deleting something, it asks.\n\nResearch preview, waitlist only, US Pro and Max users for now. Runs on Opus 5.5. No extra cost, it uses your existing plan limits.\n\nMy take is, the chat box was never the destination. The shift is from AI you go to, to AI that comes to you, holding context on your work and your life.\n\nEvery assistant is heading there.\n\nAnthropic just shipped a first version.\n\nLink in comments.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7519413014228393985/",
+    "related": []
+  },
+  {
+    "id": "4-gates-every-pr-passes-through",
+    "date": "2026-08-13",
+    "title": "4 gates every PR passes through.",
+    "body": "4 gates every PR passes through. We've only automated 2.\n\n Gate 1. Does the code work.\n Gate 2. Is the code clean.\n Gate 3. Will it break in production.\n Gate 4. Will it spike the bill, cloud or model.\n\nAll good, merge. Not all good, don't merge.\n\nGates 1 and 2 are solved. Like this:\n\n> CI runs the tests.\n> Linters and now LLM reviewers handle the second one, and honestly they do it better than most of us humans do. Especially if it's 5pm on a Friday. :-)\n\nGates 3 and 4 are where it falls apart. Like this:\n\n> The standard answer is load testing and staging.\n> I've built those environments for a few teams and I'll say the quiet part: they run after the merge, on a schedule, against data that doesn't look like production. By the time they flag something, the commit is buried under 40 others and nobody can point at the one that did it.\n\nSo....\n\nGate 3 becomes an incident!\n\nGate 4 becomes a finance meeting in month 2!\n\nThat was survivable when a team shipped 15 PRs a week.\n\nAt 100s of PRs a week, with a lot of them model-authored, it isn't survivable.\n\nThe gate didn't get weaker.\n\nThe volume went up and the gate stayed exactly where it was.\n\nWhat gates 3 and 4 actually need is the same shape as gates 1 and 2.\n\n> Automatic.\n> On the diff.\n> Blocking. Before the merge, not after.\n\nNobody would ship without CI.\n\nWe ship without this every day.\n\nI've spent a while now convinced that's the wrong tradeoff, and I've stopped just complaining about it.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7493629945869680640/",
+    "related": []
+  },
+  {
+    "id": "handoff-where-multi-agent-systems-die",
+    "date": "2026-07-16",
+    "title": "The handoff is where multi agent systems die",
+    "body": "★ The handoff is where multi agent systems die ★\n\nMulti agent systems fail in a very specific place, and it is not where people look.\n\nThey do not fail inside an agent.\n\nAgent A does its job well.\n\nAgent B does its job well.\n\nThe failure is in the handoff between them.\n\nThe baton drop in the middle.\n\nEveryone romanticizes agent swarms right now.\n\nMore agents, more autonomy, elegant diagrams full of boxes and arrows.\n\nHere is the part the diagram hides: every arrow between two boxes is a place where context can get mangled.\n\nMore agents means more handoffs means more silent failure points.\n\nComplexity is not a feature.\n\nEvery agent you add is a new thing that can lie to the next one.\n\nThe hardest question in multi agent design is this: when the final output is wrong, which agent caused it?\n\nWithout scoring the handoffs, the honest answer is \"no idea, restart the whole thing.\"\n\nThat is not engineering.\n\nThat is superstition with a compute bill.\n\nAnd there is a subtle trap in how agents hand off.\n\nIf they pass context in natural language, they are playing telephone.\n\nSmall distortions compound down the chain.\n\nBy the fourth agent, the original intent is gone, and no single agent did anything obviously wrong.\n\nThe industry got very good at tracing what happened between agents.\n\nTracing shows you the path.\n\nIt does not tell you if the path was any good.\n\nThose are different jobs.\n\nGrading the handoff is the one that is still missing, and it is the one that matters for anything with money or compliance on the line.\n\nMy rule: a single agent that works beats a 5 agent architecture that looks impressive on a slide.\n\nAdd agents when one genuinely cannot do the job.\n\nNot because orchestration looks smart.\n\nIf you run multi agent systems in production, where do yours actually break?",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7483483075272671232/",
+    "related": []
+  },
+  {
+    "id": "ive-built-3-products-six-years",
+    "date": "2026-07-15",
+    "title": "I've built 3 products in six years.",
+    "body": "I've built 3 products in six years.\n\nIt took me until this year to notice they were all the same company.\n\nA synthetic monitoring platform that existed because enterprises refused to take their own dashboards at their word.\n\nWe verified from the outside, like a real user.\n\nA prayer app where the AI is never allowed to play the oracle.\n\nIt listens, then routes to Scripture. The trusted source gives the answer. The software is the servant, never the source.\n\nAn open-source framework that grades AI agents on the path they took, not just the final answer, and refuses to emit a score without an explanation.\n\n- Monitoring for infrastructure.\n- Reverence for the sacred.\n- Evals for agents.\n\nOne thesis underneath all of it. Don't ask people to trust you, hand them a way to verify.\n\nI think that thesis is about to become the whole game.\n\nWhen generating a convincing anything costs nothing, proof is the only currency that doesn't inflate.\n\nI wrote the full argument, including my prediction for where the next decade of value goes.\n\nFull article in the comments.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7483120702217355264/",
+    "related": []
+  },
+  {
+    "id": "valuable-learning-building-perfagents-sell-sleep",
+    "date": "2026-07-14",
+    "title": "A valuable learning building PerfAgents: sell the sleep, not the…",
+    "body": "★ A valuable learning building PerfAgents: sell the sleep, not the software ★\n\nI bootstrapped my last company to real ARR with a team of 20 and zero outside funding. Here is the single most useful thing I learned about enterprise.\n\nEnterprise does not buy features. The champion and the teams at these enterprises buy the 𝘢𝘣𝘪𝘭𝘪𝘵𝘺 𝘵𝘰 𝘴𝘭𝘦𝘦𝘱 at night.\n\nWe built synthetic monitoring. Deeply unglamorous.\n\nOur whole job was watching whether other companies' software was up, and paging the right person the moment it was not.\n\nOne of our customers was a fintech whose components sat inside the checkout flow of major US retailers such as Nordstrom and Lululemon. So while you were on one of those sites, moving toward buying something, our nodes around the world were quietly running that same path over and over. Not pinging a homepage.\n\nWalking the real sequence, hitting the real APIs, from Frankfurt, from Singapore, from Virginia, every few minutes.\n\nWhen something broke, we woke up the engineer who owned it. Before a single customer noticed.\n\nThat was the entire product. Nobody's engineer wants to learn about the outage from a customer on social media.\n\nNot once did a feature list close a deal. What closed deals was answering one question fast and convincingly: what happens when your thing breaks at 3 am.\n\nThat reframe changed how I sell everything. Nobody at a Fortune 500 wants a dashboard. They want to not get the call from their CEO asking why checkout is down. They want to not be the person who gets blamed. Sell to that, the fear and the relief, not the fan's excitement about your UI.\n\nThe person who loves your demo is rarely the person who signs. Find the one who gets blamed when things break. That is your buyer.\n\nThe unsexy truth about monitoring, and honestly about a lot of great products: the better you do your job, the less anyone notices you.\n\nWe were most successful precisely when we were invisible.\n\nSome of the best software is the thing nobody ever has to think about.\n\nFounders, what is the \"sleep at night\" version of the thing you are selling?\n\nDrop your comments.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7482796128770453506/",
+    "related": []
+  },
+  {
     "id": "meaning-economy",
-    "date": "2026-11-02",
-    "title": "The Meaning Economy",
-    "body": "Intelligence is turning into a commodity. When that happens, the answer stops being the scarce thing.\n\nWhat stays scarce is meaning, and the voice that carries it.\n\nI call this the Meaning Economy.",
+    "date": "2026-06-06",
+    "title": "When intelligence is free, meaning is the scarce thing",
+    "body": "34 startups raised over $200M this year.\n\nRobot brains.\n\nWorld models.\n\nChips.\n\nCoding agents.\n\nNuclear plants to feed the data centers.\n\nEvery dollar is chasing the same thing.\n\nCheaper, faster intelligence.\n\nAlmost nobody is funding the other half.\n\nWhat a person actually does with that intelligence once it costs nothing.\n\nThat is my bet.\n\nWhen intelligence is free, meaning is the scarce thing.\n\nSo I build at the application layer, not the engine room.\n\nThyWord, my voice first prayer app, has 12,000 downloads and not one of those 34 is competing for the ground I am on.\n\nEveryone is building the engine.\n\nWhat we point it at is wide open.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7468913903616462848/",
+    "related": []
+  },
+  {
+    "id": "some-prayers-meant-loud",
+    "date": "2026-05-30",
+    "title": "Some prayers are not meant to be loud.",
+    "body": "Some prayers are not meant to be loud.\n\nThe ones whispered at 2am. The ones you say with your eyes closed in a crowded room. The ones too fragile to speak above a breath.\n\nWhen we built ThyWord, we kept coming back to this. A prayer companion that only works when you raise your voice would miss the most honest moments of all.\n\nSo we tuned it for the quiet. You can whisper, barely move your lips, and ThyWord still catches your words and matches them to Scripture in real time.\n\nThis was not simple on the engineering side. Soft speech, low volume, breathy input. These are some of the hardest things to get right in voice. We spent real time on it, because the whisper is where so much of faith actually lives.\n\nMy grandmother prayed under her breath every morning. I never once heard the words clearly. But I always knew she was praying.\n\nThat is who we built this for.\n\nTry it for yourself. Whisper a prayer and watch the Scripture come back to you.\n\nDownload ThyWord at thywordapp.com and tell me what you feel.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7466372578056601601/",
+    "related": []
+  },
+  {
+    "id": "build-with-ai-every-day",
+    "date": "2026-05-24",
+    "title": "I build with AI every day.",
+    "body": "I build with AI every day.\n\nVoice models, language models, pipelines that move faster than I can think.\n\nAnd the more I build, the clearer one thing becomes.\n\nAI can do a lot. It still can't do the things that make us human.\n\nIt can write a sympathy note. It can't sit with you.\n\nIt can draft an apology. It can't actually be sorry.\n\nIt can simulate care. It can't choose to care.\n\nThe hard part of being human was never the words. It was the meaning behind them.\n\nThe real risk isn't that AI replaces us. It's that we forget what only we can do.\n\nBuild with it. Don't outsource yourself to it.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7464447650948526080/",
+    "related": []
+  },
+  {
+    "id": "most-useful-language-learn-2026-might",
+    "date": "2026-05-14",
+    "title": "The most useful language to learn in 2026 might be your own.",
+    "body": "The most useful language to learn in 2026 might be your own.\n\nIt's no longer Python or JavaScript.\n\nI watched the Missional AI fireside chat between Pat Gelsinger and Steele Billings of Gloo, and one idea stuck with me.\n\nThey called it the reversal of Babel.\n\nFor about 70 years, being productive with a computer meant learning its language.\n\nSyntax, commands, structure.\n\nWe adapted to the machine. We learned to use the text interface.\n\nNow that is flipping.\n\nThe machine is learning to understand us.\n\nPlain speech. Intent.\n\nThe way we actually talk.\n\nWhat moved me was not the technical side of that. It was the spiritual side. So much of faith already lives in spoken words. Prayer is voice. Confession is voice. The oldest forms of worship were never typed.\n\nFor the first time, technology can meet people in that natural register instead of asking them to translate themselves into something a screen understands.\n\nI build in this space every day, so maybe I am biased. But I think the quiet story of this era is not that machines got smarter. It is that they finally got close enough to hear us.\n\nGrateful to the Missional AI community for the conversation.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7460766788675436544/",
+    "related": []
+  },
+  {
+    "id": "andrew-chens-argument-lands-hard-from",
+    "date": "2026-05-12",
+    "title": "Andrew Chen's argument lands hard from where I sit.",
+    "body": "Andrew Chen's argument lands hard from where I sit. I'm building ThyWord from a Jacksonville office, and the policy conversations shaping our industry are happening in rooms I'll likely never be in. Florida and Jacksonville should care about that, because the founders being shaped by these rules are right here, at kitchen tables, on short runways.\n\nAndrew's pitch is simple. Whether your state or city has startups is a choice.\n\nIf you want them, you have to make conditions conducive, and you have to actually talk to Little Tech, not just the big incumbents and the industries getting disrupted.\n\nHe offers an open door for any policymaker who wants to sit with 5 or 10 genuinely small startups and hear what they actually need.\n\nThe throughline is pretty clear. Little Tech is structurally absent from policy debates, and the people writing the rules are hearing a skewed picture of what the industry actually looks like.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7460034753979883520/",
+    "related": []
+  },
+  {
+    "id": "thinking-about-b2c-graveyard-today",
+    "date": "2026-04-17",
+    "title": "I was thinking about the B2C graveyard today.",
+    "body": "I was thinking about the B2C graveyard today.\n\nMost consumer apps don't die because they had a bad idea. They die because they lost the \"vibe.\" And in 2026, the vibe is powered by AI agents.\n\nWe’ve officially entered the era of Intent-and-Generate.\n\nThe modern consumer doesn't want to browse your menu or click through your filters. They want to say, \"Fix this for me,\" and have an agent do the heavy lifting.\n\nBut here’s the problem: Consumers are way less forgiving than Enterprise CEOs.\n\nIf a B2B tool glitches, you open a Jira ticket.\n\nIf a B2C agent glitches. You know what happens next? That customer is gone. Forever. Delete. 1-star review.\n\nThis is why B2C needs deep Observability even more than the Enterprise guys do.\n\nIn the B2C world, \"uptime\" isn't enough anymore. You need to see the \"why.\"\n\nWhy did the agent give that specific response?\n\nWhere exactly did the reasoning chain break?\n\nWas it a slow API, or did the model just lose the plot?\n\nIf you can't trace that interaction in real-time, you aren't running a business; you’re running a lottery.\n\nI’ve realized during my morning runs that you can't improve what you can't measure.\n\nYou can't fix your form if you don't know where you're over-striding.\n\nB2C is exactly the same. If you aren't using something like an OTel-native stack to watch your agents, you're just running blind and hoping you don't hit a wall.\n\nThe \"Prime Sport\" of the future isn't just about who builds the smartest agent. It’s about who has the best eyes on the ground.\n\nSo, for the B2C founders out there:\n\nHow are you actually watching your agents?\n\nAre you still \"praying\" it works, or have you moved to a real Observability stack?\n\nDrop your preferred setup in the comments.\n\nI'm curious if anyone is actually making legacy logs work for this, or if we’ve all finally moved on.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7450991055266709504/",
+    "related": []
+  },
+  {
+    "id": "anthropic-claude-opus-47-here",
+    "date": "2026-04-16",
+    "title": "Anthropic Claude Opus 4.7 is here.",
+    "body": "Anthropic Claude Opus 4.7 is here.\n\nThe headline is coding, and rightly so.\n\nReplit, Cursor, Factory, Notion, Vercel, Databricks, all reporting double digit lifts on the hardest tasks.\n\nBut the line that caught my eye sits further down the page: \"more than three times\" the image resolution of prior Claude models, and a new xhigh effort level for long, careful reasoning.\n\nAt ThyWord we care about a different flavor of hard.\n\nA person whispers a prayer.\n\nThyWord hears them, understand what they are actually carrying, and match them to Scripture that meets them where they are. And then discards the original prayer.\n\nWhen we do the matching, it's not the verse that sounds closest. The verse that fits, with the emotional weight.\n\nThat is a multimodal, long context, high stakes retrieval problem dressed up as a consumer app.\n\nEvery improvement in instruction following, honesty about limits, and sustained reasoning shows up directly in whether a young mom at 2am, with a baby who will not sleep and a mind that will not quiet, feels heard or feels like she talked to a chatbot.\n\nCongrats to the Anthropic team. Excited to put 4.7 through its paces this week.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7450579317085900805/",
+    "related": []
+  },
+  {
+    "id": "era-chatbot-dead",
+    "date": "2026-04-16",
+    "title": "The era of the Chatbot is dead.",
+    "body": "The era of the Chatbot is dead.\n\nWe’ve moved from tools that talk to agents that execute.\n\nIn the Enterprise world, this isn't a productivity hack.\n\nIt’s a total architectural collapse of the old way.\n\nHiring interns to summarize PDFs is an old story now. The new story is, deploying coding agents to rewrite legacy pipelines while the C-suite sleeps.\n\nBut here’s the disruptive truth: The barrier to entry has vanished, and safety net went with it.\n\n1. The Death of the \"How\"\n\nIn the consumer world, we used to pay for the \"How\". The coding, the design, the manual labor. With coding agents, the \"How\" is a commodity.\n\nThe distance between an idea and a shipped product is now measured in minutes. But speed without sight is just a faster way to hit a wall.\n\n2. The Observability Mandate\n\nIf an agent is writing code, deploying microservices, and shifting data in real-time, you can't rely on old-school logs. Observability is the only heartbeat that matters.\n\nYou cannot secure what you cannot see.\n\nYou cannot trust what you cannot trace.\n\nIn a world of autonomous agents, deep observability is the only thing keeping your Enterprise from spinning into a black hole of unfixable technical debt.\n\n3. Vulnerability vs. Acceptability\n\nAs agents start writing the world's infrastructure, the Vulnerability Side becomes the new frontline.\n\nIf an agent can build a feature in seconds, a bad actor’s agent can find a hole in milliseconds. We are entering the \"Acceptability Phase\", where the market only accepts AI-driven decisions if they are fully transparent and traceable.\n\nWhat does this mean to Enterprises:\n\nCoding agents have leveled the playing field, but they’ve also weaponized complexity.\n\nThe \"Big Guys\" are vulnerable to agile disruptors, and the \"Agile Disruptors\" are vulnerable to their own lack of oversight.\n\nI think about this during my morning runs.\n\nAt mile 5, the noise drops away and you see the path for what it really is.\n\nIn tech, that clarity is everything. That clarity is called Observability.\n\nIf you aren't obsessing over how to watch your agents today, you won't have an Enterprise to run tomorrow. Period.\n\nWhat kind of Observability stack do you prefer in the modern AI era?\n\nDoes OpenTelemetry cut it, or do we need something deeper?\n\nPlease comment below.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7450558857728315392/",
+    "related": []
+  },
+  {
+    "id": "everyone-talking-about-ai-agents-writing",
+    "date": "2026-04-15",
+    "title": "Everyone is talking about AI agents writing code.",
+    "body": "Everyone is talking about AI agents writing code.\n\nNobody is talking about who watches the code after it ships.\n\nAnthropic just launched Managed Agents, Routines, and a full desktop experience for Claude Code.\n\nThis is not incremental.\n\nThey are building an operating system for the entire software engineering loop.\n\nAI agents are about to deploy more code, more often, with less human review than anything we have seen before.\n\nAnd the humans who used to catch problems by reading diffs and reviewing PRs?\n\nThey will be outnumbered.\n\nWhen a human writes bad code, another human usually catches it in review.\n\nWhen an AI agent writes bad code and ships it at 2am through an automated pipeline, the only thing standing between you and an outage is your observability stack.\n\nObservability is no longer a monitoring tool. It is the immune system of software.\n\nThe next era belongs to platforms that move from \"here is a dashboard showing something broke\" to \"we detected the anomaly, identified the root cause, and rolled it back before your customers noticed.\"\n\nAgents watching agents. Built natively on open standards like OpenTelemetry.\n\nTransparent pricing. Autonomous operations.\n\nI have spent almost two decades helping enterprises adopt complex infrastructure.\n\nThe pattern is always the same: the picks and shovels win.\n\nIn the AI agent era, observability is the picks and shovels.\n\nWould love to hear what my fellow LinkedIn people think about it?",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7450135850438340608/",
+    "related": []
+  },
+  {
+    "id": "anthropic-unveiled-mythos-exactly-week-ago",
+    "date": "2026-04-14",
+    "title": "Anthropic unveiled Mythos exactly a week ago on Tuesday, April 7, 2026.",
+    "body": "Anthropic unveiled Mythos exactly a week ago on Tuesday, April 7, 2026.\n\nIt finds zero-day vulnerabilities in every major operating system.\n\nIt chains 4 bugs into a working browser exploit overnight.\n\nIt reverse engineers closed source binaries.\n\nEngineers with no security background are waking up to finished exploits in their inbox.\n\nIf you work in observability, read that again.\n\nFor 24 years we have built stacks that assume the attacker moves at human speed.\n\nDashboards refresh every minute.\n\nAlerts fire on thresholds tuned for last quarter's traffic.\n\nIncident response runbooks assume a person is reading logs, forming a hypothesis, opening a ticket.\n\nTHAT ENTIRE MENTAL MODEL JUST GOT OBSOLETE.\n\nWhen an AI can discover and weaponize a 27 year old bug in OpenBSD in a single run, your mean time to detect (MTTD) is no longer measured in minutes.\n\nIt is measured in how fast your telemetry pipeline can reason.\n\nLogs, metrics and traces are not enough anymore.\n\nYou need SEMANTIC OBSERVABILITY.\n\nSystems that understand what the data means, not just what it says.\n\nA few things I am watching closely.\n\nSynthetic monitoring is going to get reborn.\n\nNot as scripted Selenium flows, but as adversarial agents probing your own surface the way Mythos would.\n\nIf you are not red teaming your production with AI, someone else is.\n\nOpenTelemetry becomes the substrate.\n\nThe winners in this next wave are the platforms that can ingest everything and let a model reason across it in real time.\n\nDash0 is making that bet natively on OpenTelemetry.\n\nChronosphere is making it from the cloud native scale angle.\n\nBoth are reading the room correctly.\n\nThe legacy three pillar vendors are not.\n\nThe SOC and the SRE merge.\n\nYou cannot separate reliability from security when the same model can both find the bug and trigger the outage.\n\nOne pane of glass is no longer a vendor slogan.\n\nIt is survival.\n\nI spent years building synthetic monitoring at PerfAgents and watching enterprise teams drown in signal without meaning.\n\nMythos does not create that problem.\n\nIt exposes how unprepared we already were.\n\nThe observability category is about to get rewritten.\n\nThe tools that survive will be the ones that think, not just the ones that store.\n\nWho else is thinking about this? I want to compare notes.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7449920325821116417/",
+    "related": []
+  },
+  {
+    "id": "wow-whoever-has-made-app",
+    "date": "2026-04-14",
+    "title": "\"Wow, whoever has made this app...\"",
+    "body": "\"Wow, whoever has made this app...\"\n\nTo the user who sent this: You are the reason I am a second-time founder.\n\nThere is a lot of noise in the AI space right now, but I’ve always maintained that technology without mission is just code.\n\nI built ThyWord to disrupt how we interact with faith. We stayed away from static text toward an immersive, voice-first conversational interface.\n\nFrom a technical standpoint, creating that \"encouragement\" requires more than just an LLM wrapper.\n\nIt requires optimizing for low-latency, voice-first interactions where the system doesn’t just process words, but understands human intent in real-time.\n\nWhen I architected this, the goal was to ensure the technology remained invisible so the impact could remain front and center.\n\nSeeing the mission-market fit align so closely with the technical architecture is why I do what I do.\n\nWe are proving that you can scale \"encouragement\" through smart, visionary engineering.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7449769706053468160/",
+    "related": []
+  },
+  {
+    "id": "38-million-views",
+    "date": "2026-04-13",
+    "title": "3.8 Million Views.",
+    "body": "3.8 Million Views. 1.7 Million Unique Viewers. 75.4K Link Clicks.\n\nThis isn’t just a viral moment for ThyWord. It’s an architectural stress test that we passed with flying colors.\n\nIn the last 28 days, we’ve tracked a fundamental shift in user behavior.\n\nThe market is moving away from passive scrolling toward Active Participation.\n\nUsers aren't just looking for content; they are looking for \"encouragement\" delivered through high-intent, interactive experiences.\n\nWhen I architected ThyWord, the goal was to disrupt the \"static text\" era of spiritual tech.\n\nWe built a voice-first, intent-driven interface designed to handle this exact type of rapid, high-concurrency scaling without losing the human touch.\n\nThe Technical Takeaway: 75,000+ high-intent link clicks prove that when you solve a deep human need with sophisticated, low-latency engineering, the \"invisible\" technology becomes the most powerful bridge to the user.\n\nAs a founder, seeing the mission-market fit align so perfectly with the technical architecture is why I build.\n\nWe are proving that you can scale impact through smart, visionary engineering.\n\nThe frontier of voice-first AI is just beginning.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7449610772382441472/",
+    "related": []
+  },
+  {
+    "id": "everyone-building-ai-talks-like-god",
+    "date": "2026-04-08",
+    "title": "Everyone is building AI that talks like God.",
+    "body": "Everyone is building AI that talks like God.\n\nWe built something that listens like your grandmother.\n\nThat line is the headline of a story about ThyWord that ran on MarketWatch this week. Still feels strange to type that sentence.\n\nSix weeks ago we launched a voice first prayer companion on iOS and Android. The idea was simple. Most prayer apps tell you what to say. We wanted one that actually hears you, then meets you in Scripture. No scripts. No performance. The kind of presence my grandmother had. She would close her eyes and pray for me out loud.\n\nI did not expect a financial news site to be the one that picked up the story. But maybe that is the point. The Meaning Economy is real. As AI gets louder and faster, people are quietly looking for something slower and deeper. Six days a week between Sundays, most of us are figuring out faith on our own. ThyWord is for those six days.\n\nBuilding this has been the most meaningful work of my career. It also sits alongside two decades of enterprise architecture, observability, and platform work that I am still very much in love with. Two tracks, one operator.\n\nIf you want to read the piece, it is on MarketWatch under the headline above.\n\nAnd if you want to try the app, it is called ThyWord on the App Store and Google Play.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7447745775633207296/",
+    "related": []
+  },
+  {
+    "id": "tomb-prerequisite-failure",
+    "date": "2026-04-04",
+    "title": "The Tomb is a Prerequisite, Not a Failure!",
+    "body": "The Tomb is a Prerequisite, Not a Failure!\n\nThree words have reshaped history for over 2,000 years: He is risen.\n\nThey've endured not because of a distribution strategy or perfect branding.\n\nThey've endured because they speak to a fundamental truth about the human condition.\n\nAs a founder, I've been thinking a lot about the Easter story this year. When you build a startup, you live inside a cycle that strangely mirrors this narrative.\n\nYou pour your life into something you believe in, only to watch it get crushed by the market, by doubt, or by metrics that refuse to cooperate.\n\nEvery founder I know has had their \"Friday.\"\n\nThe day the bank account hits zero.\n\nThe day the lead investor says no.\n\nThe day you sit in your driveway, wondering if you're actually just crazy.\n\nIn tech, we worship iteration.\n\nWe celebrate the \"pivot.\" But we rarely talk about the deeper engine underneath it all: Hope.\n\nOptimism says, \"Things will probably work out.\" Hope says, \"Even if they don't, there is something worth building that outlasts the outcome.\"\n\nI started ThyWord because I believe we are entering the Meaning Economy.\n\nAI is automating knowledge, tasks, and workflows. But it will never automate meaning.\n\nIt cannot replicate the moment a mother whispers a prayer over her child at 2 AM, or the way a piece of Scripture meets you exactly where you are in a moment of despair.\n\nTechnology is just the tool. Purpose is the operating system.\n\nIn the startup world, we call it a \"breakthrough\" or a \"comeback.\" In my faith, we call it Sunday.\n\nWhether you're a founder grinding through your Friday, an engineer building in the dark, or a leader carrying a team through uncertainty, remember that the greatest comeback story ever told didn't need a slide deck.\n\nSunday is coming.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7446411991663058944/",
+    "related": []
+  },
+  {
+    "id": "friday-good",
+    "date": "2026-04-03",
+    "title": "Friday is good.",
+    "body": "Friday is good.\n\nNot because the week is over.\nNot because the weekend is here.\n\nFriday is good because sometimes the worst day becomes the most important one.\n\nEvery founder knows this feeling.\n\nThe day your biggest customer churns. The day your co-founder says \"we need to talk.\" The day your bank account hits a number that makes your stomach drop.\n\nYou don't call those days good while you're in them. You call them good later. When you realize that was the day everything actually changed.\n\nTwo thousand years ago, a Friday looked like complete failure. A movement was over. The leader was gone. His closest team abandoned the project.\n\nNobody standing there called it good.\n\nBut that Friday became the most consequential product launch in human history. Three days later, everything changed. And we still talk about it.\n\nSo if you're in your \"Friday\" right now, the fundraise fell through, the product broke, the deal died, just know this:\n\nSome Fridays only look bad from the inside.\n\nHave a blessed Good Friday. The story isn't over.\n\nRepost if your worst day turned into your best chapter.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7445739970633474048/",
+    "related": []
+  },
+  {
+    "id": "grandmother-prayed-every-single-day-her",
+    "date": "2026-04-02",
+    "title": "My grandmother prayed every single day of her life.",
+    "body": "My grandmother prayed every single day of her life.\n\nShe told our family that at least one person should spend time in God's presence every day. I carried that with me across continents, career changes, and decades in tech. But I could never live up to it. Not consistently. Not with four kids and a demanding career.\n\nSo I built something.\n\nThyWord is a voice first prayer companion. You pray out loud. The app listens and responds with a Scripture that speaks to what you're feeling.\n\nNo chatbot. No celebrity. No AI pretending to be God.\n\nSince launching on Ash Wednesday, more than 2,500 prayers have been spoken into the app by over 1,250 people.\n\nAnd, every second a prayer is being done on ThyWord. That's incredible and honestly I never thought that it would happen so soon as this.\n\nGratitude is the most common emotion. Then Spiritual Growth. Then Healing. Then Strength.\n\nThis Easter, while the largest faith apps spend millions on Super Bowl ads and celebrity partnerships, we're proving something simpler: people just want to pray and be heard.\n\nI call it the six days between Sundays problem. You leave church feeling connected. By Monday, the noise takes over. By Friday, the connection is gone. ThyWord exists for the Tuesday afternoon, not the Sunday morning.\n\nFree to download: https://lnkd.in/dgx9whGS\n\nFull story on Yahoo Finance:\n https://lnkd.in/eaVYaSdm",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7445593479604260864/",
+    "related": []
+  },
+  {
+    "id": "two-data-exposures-at-anthropic-under",
+    "date": "2026-04-01",
+    "title": "Two data exposures at Anthropic in under a week.",
+    "body": "Two data exposures at Anthropic in under a week.\n\nAnd both of them trace back to the same root cause: gaps in OPERATIONAL discipline.\n\nFirst, nearly 3,000 unpublished assets left in a publicly searchable CMS because the default setting was public and nobody enforced a policy to change it.\n\nThen days later, a source map file ships with a routine Claude Code npm update, exposing 500,000+ lines of source code. A known Bun bug had been open for 20 days. Nobody caught it before it hit production.\n\nNo customer data was compromised. But this is exactly why DevOps matters.\n\nBuild pipeline hygiene.\n\nEnvironment configuration audits.\n\nAutomated checks that catch what humans miss before it ever leaves the gate.\n\nDefault settings that are secure by design, not by hope. These aren't nice to haves. They're the guardrails that keep your entire operation from becoming a headline.\n\nIf your CI/CD pipeline doesn't have a gate that flags debug artifacts, misconfigured defaults, or known upstream bugs before deployment, you're one npm publish away from the same story.\n\nShipping fast is great.\n\nShipping safely is the job.\n\nMore detailed breakdown coming soon. Stay tuned.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7445229433877262336/",
+    "related": []
+  },
+  {
+    "id": "late-2024-took-demo-from-dash0",
+    "date": "2026-03-30",
+    "title": "In late 2024, I took a demo from Dash0 when they were a small team with…",
+    "body": "In late 2024, I took a demo from Dash0 when they were a small team with a big vision.\n\nI was running PerfAgents at the time and evaluating observability tools for our Kubernetes infrastructure monitoring. The product was early but the conviction was clear.\n\nThis week they announced a $110M Series B at a $1B valuation.\n\n600+ customers.\n\nDisplacing Datadog and Dynatrace.\n\nThe number that stays with me: at KubeCon, Mirko Novakovic and the Dash0 team set a goal of 500 demos.\n\nThey delivered 1,800 in 3 days.\n\nWith 30 people.\n\nFour months after launch.\n\nThat is not marketing. That is a team on a mission.\n\nAs someone who spent years building in the monitoring and observability space, this one hits different.\n\nOpenTelemetry native, transparent pricing, AI agents that actually resolve production issues instead of just flagging them.\n\nCongrats to Mirko Novakovic and the entire Dash0 team. It is clear that this is just the beginning.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7444460562522095616/",
+    "related": []
+  },
+  {
+    "id": "most-apps-ask-type",
+    "date": "2026-03-26",
+    "title": "Most apps ask you to type.",
+    "body": "Most apps ask you to type. We ask you to speak.\n\nWhen we built ThyWord, we made a deliberate design choice: voice first, everything else second.\n\nNo keyboard. No scrolling through menus.\n\nYou open the app, tap one button, and start talking.\n\nWhy?\n\nBecause prayer isn't something you type. It's something you pour out.\n\nAnd when someone is in a moment of need, the last thing they want is friction.\n\nBehind that simple microphone button is a real time speech to Scripture matching engine.\n\nYou speak what's on your heart, and ThyWord listens and responds with the exact Bible verses that speak to your situation.\n\nBuilding this taught me something important about product design: the best technology disappears.\n\nThe user shouldn't be thinking about the AI, the transcription, or the matching algorithm.\n\nThey should just feel heard.\n\nThat gold mic button?\n\nIt's the entire product. One tap. One conversation.\n\nOne moment between you and the Divine Presence, powered by technology you never have to think about.\n\nWe launched on Ash Wednesday and we're just getting started.\n\nIf you're building something where SIMPLICITY is the FEATURE, I'd love to connect.\n\nTry ThyWord for free. Available on iOS and Android:\n\nthywordapp.com/download",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7443052558715142144/",
+    "related": []
+  },
+  {
+    "id": "ive-been-building-public-few-weeks",
+    "date": "2026-03-23",
+    "title": "I've been building in public for a few weeks now and here's my hottest…",
+    "body": "I've been building in public for a few weeks now and here's my hottest take so far:\n\nThe keyboard is a bottleneck for the soul.\n\nLet me explain.\n\nWhen I started building ThyWord, our voice first prayer companion app, I assumed the hard part would be the AI. Getting the speech recognition right. Matching prayers to Scripture accurately.\n\nAnd yeah, that stuff is hard.\n\nBut the real unlock wasn't technical. It was emotional.\n\nWhen someone speaks a prayer out loud, they're not editing themselves. They're not backspacing. They're not crafting the perfect sentence. They're just... being honest.\n\nAnd that honesty is data that text based AI will never fully capture.\n\nVoice carries tone. Pace. Pauses. The crack in someone's voice when they're asking for help. None of that comes through in a text box.\n\nThis is why I believe voice is the most underrated frontier in AI right now.\n\nNot voice assistants that set timers. Not voice clones that mimic celebrities.\n\nI'm talking about AI that actually listens to the meaning behind someone's words.\n\nWe're building this at ThyWord and sharing the journey openly because I think more founders need to explore this space. The technology is ready. The models are good enough. What's missing is imagination.\n\nVoice isn't just an input method. It's the most human way we have to connect.\n\nAnd AI should meet us there.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7441974563795677184/",
+    "related": []
+  },
+  {
+    "id": "most-ai-companies-obsessed-with-text",
+    "date": "2026-03-23",
+    "title": "Most AI companies are obsessed with text.",
+    "body": "Most AI companies are obsessed with text.\n\nChatbots. Prompts. Typing into a box.\n\nBut here's what I think everyone is sleeping on: the future of AI isn't typed. It's spoken.\n\nThink about it. We don't naturally communicate by typing. We talk. We speak out. We whisper. We pray.\n\nVoice is the oldest interface humans have. And yet most of the AI world is still building for screens and keyboards.\n\nI'm building ThyWord, a voice first prayer app that listens to your spoken prayers and responds with Scripture in real time. And what I've learned building this in public over the last few months is something that surprised me.\n\nPeople don't want to type their deepest thoughts. They want to say them out loud.\n\nThere's something that happens when you speak a prayer versus when you type one. It hits different. It's more raw. More real. The voice carries weight that text simply cannot.\n\nAnd when AI can meet someone in that moment, not with a chatbot response but with the right Scripture at the right time, that's when technology stops feeling like technology.\n\nWe're in the early innings of voice AI. Not just for prayer, but for therapy, for journaling, for coaching, for gratitude.\n\nThe companies that figure out how to build AI that truly listens (not just transcribes) are going to change how people interact with technology forever.\n\nI'm betting my company on it.\n\nIf you're also building at the intersection of voice and AI, I'd love to connect. This space is wide open and I think the best is still ahead.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7441953006528421888/",
+    "related": []
+  },
+  {
+    "id": "person-full-pride-always-angry",
+    "date": "2026-03-22",
+    "title": "A person full of pride is always angry.",
+    "body": "A person full of pride is always angry.\n\nWe easily get upset when things don't go our way.\n\nYou work late nights on a project but your manager barely notices.\n\nYou give it everything and it still feels like it wasn't enough.\n\nThat constant frustration?\n\nIt often comes from pride.\n\nThe hidden belief that we must be perfect and in total control.\n\nWhen we stop trying to be the smartest person in the room, we drop a heavy burden.\n\nYou don't have to be flawless to earn your seat at the table.\n\nNext time frustration tries to steal your peace, try these simple steps:\n\n1. Pause and breathe. When the pressure makes your temper rise, step away for a moment. Give yourself space to think clearly instead of reacting.\n\n2. Accept setbacks. A lost deal, a missed promotion. These are not signs of failure. They're part of the journey.\n\n3. Rest and step back. Your worth is not tied to your last performance review. You are more than your title or your LinkedIn headline.\n\nPeace comes from having the humility to admit we don't have all the answers. And that's not weakness.\n\nThat's wisdom.\n\nWhether you pray, meditate, journal, or just sit in silence, find that thing that brings you back to the center.\n\nThe grind never stops. But you're allowed to.\n\nWhat helps you find peace when frustration hits?\n\nDrop it in the comments.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7441495769108398080/",
+    "related": []
+  },
+  {
+    "id": "grew-up-watching-grandmother-pray-every",
+    "date": "2026-03-21",
+    "title": "I grew up watching my grandmother pray every single morning in Kerala.",
+    "body": "I grew up watching my grandmother pray every single morning in Kerala.\n\nNo app, no fancy setup.\n\nJust her voice, her faith, and Scripture she knew by heart.\n\nWhen I moved to the US, my faith slowly became a Sunday thing.\n\nI stopped opening my Bible during the week. Prayer felt rushed. Life just took over.\n\nBuilding ThyWord brought me back. And with Easter out in 15 days, I wanted to share 6 things that have honestly changed how I walk with God:\n\n1. Pray out loud with SCRIPTURE. Don't just read it. Speak it. When you hear God's Word in your own voice, something shifts inside you.\n\n2. Take five minutes of SILENCE before your day starts. No phone. No podcast. Just sit with Him. That's where you'll hear what matters.\n\n3. FAST from the thing that controls you most. For me it was my phone. For you it might be something else. You'll know what it is.\n\n4. SERVE someone who can't return the favor. Buy a coffee. Mow a lawn. Show up for somebody who isn't expecting it.\n\n5. INVITE one person into your faith journey this week. Send a text. Make a call. We weren't built to walk this road alone.\n\n6. Go home and love your family well. Give them YOUR PRESENCE, not your leftovers.\n\nThe EASTER season is ideally the Spring season and is perfect for a RESET.\n\nStart with even one of these.\n\nAnd if you want Scripture to meet you right in your prayers, that's exactly why we built ThyWord.\n\nYou pray, and God's Word speaks back.\n\nAvailable now on iOS and Android.\n\nthywordapp.com",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7441221797733122048/",
+    "related": []
+  },
+  {
+    "id": "friday-midnight",
+    "date": "2026-03-21",
+    "title": "It's Friday midnight.",
+    "body": "It's Friday midnight.\n\nMost people are out.\n\nSome are sleeping.\n\nMe? I'm staring at my screen, tweaking ad copy for a prayer app.\n\nMy wife and kids are asleep down the hall. The house is quiet. And honestly? This is my favorite hour.\n\nSee, founders are clay knights.\n\nWe're not shining armor.\n\nWe're not polished.\n\nWe're molded from dust and grit and late nights and faith that what we're building actually matters.\n\nWe crack. We get reshaped. We show up again.\n\nEvery founder I know is walking around with invisible clay on their hands.\n\nSaturday nights included. While the world rests, we're still sculpting something we can barely describe to people at dinner parties.\n\n\"So what do you do?\"\n\n\"I'm building a prayer app.\"\n\n\"...oh.\"\n\nYeah. That pause. I know it well.\n\nBut here's what keeps me going tonight.\n\n15 days to Easter.\n\n15 days until the world remembers that the greatest story ever told started with a stone rolled away.\n\nThat resurrection wasn't just a moment. It was a message. Death doesn't get the last word. Neither does doubt. Neither does that \"oh.\"\n\nThyWord was born because I watched my grandmother pray every single morning in Kerala.\n\nNo app. No phone. Just her voice and Scripture.\n\nSomewhere between India and America, I let that fire go quiet. Sunday only. Then barely that.\n\nThis app is me rolling my own stone back.\n\nSo yeah. It's Saturday now technically.\n\nAnd I'm still here. Still clay. Still being shaped.\n\nIf you're a founder reading this at some unreasonable hour, just know: the fact that you're still awake means you still believe.\n\nThat's not hustle culture. That's calling.\n\n15 days.\n\nThe tomb didn't stay closed.\n\nNeither will your chapter.\n\nHappy building. Happy believing.\n\nTagging some night owl builders who get it:",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7441009395167055872/",
+    "related": []
+  },
+  {
+    "id": "im-11-days-late-post",
+    "date": "2026-03-19",
+    "title": "I'm 11 days late on this post.",
+    "body": "I'm 11 days late on this post.\n\nAnd I'm not sorry.\n\nMarch 8 was International Women's Day.\n\nI didn't post anything.\n\nI was too busy building a startup that my wife believed in before a single other person on this planet did.\n\nHere's what nobody talks about in the startup world:\n\nEvery founder you admire?\n\nThere's someone at home holding everything together.\n\nFor me, that person is Nisha.\n\nWhen I told her I was leaving a super long career to build a prayer app, she didn't ask \"are you sure?\"\n\nShe said \"go.\"\n\nShe raised four kids while I disappeared into late night coding sessions.\n\nShe kept our home running while I chased a fundraise.\n\nShe never once said \"this is too much.\"\n\nNot once.\n\nWe launched ThyWord on Ash Wednesday this year.\n\nIt's a voice first prayer companion that matches your spoken prayers with Scripture in real time.\n\nThe world saw the launch.\n\nNobody saw the woman who made it possible.\n\nThat's the thing about founders.\n\nWe get the LinkedIn posts.\n\nWe get the congratulations.\n\nWe get the \"you're so brave\" comments.\n\nYou know who's actually brave?\n\nThe person who bet on you when there was nothing to bet on.\n\nHappy Women's Day, Nisha.\n\nI don't deserve you.\n\nBut I'm grateful every single day that you chose this journey with me.\n\nTo every woman standing behind someone else's dream:\n\nThe world doesn't celebrate you enough.\n\nBut we see you.\n\nRepost this if there's someone in your life who made your dreams possible.\n\nTag them below.\n\nThyWord is live on iOS and Android.\n\nthywordapp.com",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7440365743776395264/",
+    "related": []
+  },
+  {
+    "id": "america-about-have-biggest-prayer-moment",
+    "date": "2026-03-18",
+    "title": "America is about to have its biggest prayer moment in 250 years.",
+    "body": "America is about to have its biggest prayer moment in 250 years.\n\nOn May 7, the nation observes the 75th National Day of Prayer.\n\nOn May 17, hundreds of thousands are expected on the National Mall for the Rededicate 250 Jubilee of Prayer, marking America's 250th anniversary.\n\nPrayer is about to be front page news.\n\nBut here's what I keep thinking about:\n\nWhat happens on May 18?\n\nWhat happens on a random Tuesday in June when the headlines move on but someone still can't sleep, still feels lost, still needs a word from God?\n\nThat's why I built ThyWord.\n\nThyWord is a voice first prayer companion app. You pray out loud. ThyWord listens. And it responds with the Scripture that speaks to exactly what you're going through.\n\nNot a chatbot. Not a devotional. A quiet companion for the space between Sundays.\n\nWe launched on February 18th, Ash Wednesday across the global church. We're live on iOS and Android. And we're just getting started.\n\nThe world is waking up to what my grandmother in Kerala always knew: \"PRAYER changes EVERYTHING\"\n\nIf you believe faith and technology can meet without compromise, I'd love to connect.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7439914618539520000/",
+    "related": []
+  },
+  {
+    "id": "running-prayer-room",
+    "date": "2026-03-03",
+    "title": "Running is my prayer room.",
+    "body": "Running is my prayer room.\n\nNo walls. No roof. Just road and raw honesty.\n\nWhen my legs want to quit, my soul starts talking.\n\nWhen my lungs are burning, my mind gets quiet.\n\nWhen everything hurts, somehow everything makes sense.\n\nI don't run to escape life. I run to feel it.\n\nDo you run?",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7434618674386419713/",
+    "related": []
+  },
+  {
+    "id": "4-year-old-asked-me-last",
+    "date": "2026-02-26",
+    "title": "My 4 year old asked me last night",
+    "body": "My 4 year old asked me last night,\n\n\"Daddy, does God hear me when I whisper?\"\n\nI just froze. Sat on the edge of her bed.\n\nAnd said, \"He hears every word, baby.\"\n\nShe closed her eyes and started praying. Not loud. Just a little girl talking to God like He was sitting right there. That's what prayer is supposed to feel like.\n\nNot perfectionism. Just a conversation.\n\nThat moment is why I built ThyWord.\n\nBecause somewhere along the way, a lot of us forgot how to just… talk to God.\n\nWe made it complicated. We made it intimidating. We stopped doing it altogether.\n\nThyWord is a prayer companion that listens to your voice, meets you where you are, and connects your words to Scripture.\n\nNo scripts. No pressure. Just you and God.\n\nMy 4 year old doesn't need an app to pray.\n\nBut millions of adults do need permission to start again.\n\nThat's what we're building.\n\n🔗 thywordapp.com",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7432947830551523328/",
+    "related": []
+  },
+  {
+    "id": "wednesday-reminder-myself",
+    "date": "2026-02-26",
+    "title": "Wednesday reminder to myself",
+    "body": "Wednesday reminder to myself:\n\nI spent 14 years building things for other people's companies.\n\nGood salary. Good title. Good life.\n\nBut every Sunday at church, I felt something stirring.\nNot guilt. Not restlessness. A calling.\n\nIn 2020, I finally made the jump into entrepreneurship.\n\nBuilt. Failed. Learned. Built again.\n\nHad an exit in 2025.\n\nThen I noticed something nobody was solving.\n\nThere are 6 days between Sundays.\n\nAnd most Christians are praying alone. In silence. With no guidance.\n\nSo in 2026, I built a voice first prayer companion that listens when you pray and responds with Scripture.\n\nWe launched on Ash Wednesday.\n\nAnd the response has been incredible.\n\nAm I scared? Every single day.\n\nWould I go back? Not a chance.\n\nWednesday is the middle of the week.\n\nIt's also the middle of the story.\n\nAnd the middle is where faith gets tested the most.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7432794173910523904/",
+    "related": []
+  },
+  {
+    "id": "last-night-before-state-union-group",
+    "date": "2026-02-25",
+    "title": "Last night, before the State of the Union, a group of leaders stood in…",
+    "body": "Last night, before the State of the Union, a group of leaders stood in a circle and prayed. Just a quiet moment with God before walking into the biggest room in the country.\n\nThat image stopped me.\n\nI spent years building software for Fortune 500 companies. But as a father of four, the only time I felt close to God was Sunday morning. The other six days I was on my own.\n\nThat gap is why we built ThyWord. You speak what is on your heart. It finds the Scripture that speaks back.\n\nWe launched the app on February 18th from right here in Jacksonville. An amazing team poured their hearts into this. We did not do it alone.\n\nWhether it is leaders praying before a national address or a tired parent whispering \"God help me\" before the day starts, those quiet moments are where faith actually lives.\n\nthywordapp.com",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7432584551467757568/",
+    "related": []
+  },
+  {
+    "id": "spent-5-years-helping-companies-see",
+    "date": "2025-10-17",
+    "title": "I spent 5 years helping companies SEE PROBLEMS before they became fires.",
+    "body": "I spent 5 years helping companies SEE PROBLEMS before they became fires.\n\nNow I'm realizing that most teams DON'T need more DATA.\n\nThey need less CONFUSION.\n\nAt PerfAgents, we built a synthetic monitoring platform. Testing and monitoring in one place.\n\nCompanies could finally catch issues before customers did.\n\nBut the real wins weren't technical.\n\nThey happened in meetings where someone said \"Oh, NOW I get it.\"\n\nWhen engineers stopped reacting and started preventing.\n\nWhen teams stopped fighting between QA and ops because they were finally looking at the same screen.\n\nWe didn't just give them a single pane of glass. We gave them confidence.\n\nNow at ThoughtMinds, I'm watching the same pattern play out with AI.\n\nEveryone's talking about it.\n\nFew understand where it actually helps.\n\nThe companies moving fastest? They're not the ones with the biggest AI budgets.\n\nThey're the ones who can ANSWER: \"What PROBLEM are we actually SOLVING?\"\n\nThat CLARITY is everything.\n\nIt's the difference between AI as a buzzword and AI as a business tool.\n\nBetween pilots that go nowhere and rollouts that scale.\n\nI used to think my job was about SYSTEMS.\n\nTurns out, it's always been about PEOPLE! Helping them see through the noise so they can move forward.\n\nWhat's one thing you wish was clearer about AI in your world right now?",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7384921217209618432/",
+    "related": []
+  },
+  {
+    "id": "when-battle-tested-playbooks-readily-available",
+    "date": "2025-06-18",
+    "title": "When battle tested playbooks are readily available, you skip the…",
+    "body": "When battle tested playbooks are readily available, you skip the potholes.\n\nAnd then, complex AI features won't be moon-shots anymore.\n\nThose AI features will be modular, measurable, and will be living in production.\n\nThe only prerequisite for such an outcome is genuine AI-readiness.\n\nWhich means:\n\n1. Clean data\n2. A hyperscaler home (not necessary in some cases)\n3. One or two champions who want to level-up their craft.\n\nThe AI Readiness Checklist:\n\n1. Data Hygiene. For example: 5 years of data synced to Redshift. It gives your models solid ground truth.\n2. Cloud Footprint. For example: Everything already on AWS means zero procurement friction.\n3. Champion Users. For example: Pilot users who love tinkering. Continuous feedback loops. Exec sponsor(s) eager to lock margins. Budget to unblock decisions.\n\nAll combined, a great outcome is 100% guaranteed.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7341102457529262081/",
+    "related": []
+  },
+  {
+    "id": "ai-didnt-take-job",
+    "date": "2025-06-17",
+    "title": "AI Didn’t Take My Job. It Took the Stress Out of It.",
+    "body": "\"AI Didn’t Take My Job. It Took the Stress Out of It.\"\n\n- A story from a customer of an AI development partner (from a true source).\n\nJules, an operations lead at one of the manufacturing clients in Florida, was burning out.\n\nHer days were a blur of spreadsheets, manual inventory tracking, and late-night report prep.\n\nShe told us, \"I barely had time to think; let alone improve anything.\"\n\nThat’s when her company partnered with this AI dev partner.\n\nThey implemented a simple AI workflow that automated their daily reports, flagged inventory issues in real-time, and eliminated hours of repetitive work.\n\nWithin days, Jules’s team had more time, fewer errors, and no one was let go.\n\nInstead, Jules was promoted to oversee process optimization, supported by the very AI that once scared her.\n\nHer words:\n\n\"AI didn’t take my job. It took the stress out of it.\"\n\nAt the AI dev partner company, everyone believe AI should empower people. Not replace them!",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7340959681588174848/",
+    "related": []
+  },
+  {
+    "id": "what-really-happened-worlds-most-loved",
+    "date": "2025-04-20",
+    "title": "What really happened to the world's most loved AI Dev Tool, Cursor AI…",
+    "body": "What really happened to the world's most loved AI Dev Tool, Cursor AI overnight?\n\nHow did AI screw up things in 12 hours?\n\nIt's a common phenomenon to overhype AI for everything.\n\nBut it's far from the truth that AI can do everything on its own - a workflow that starts from a human and ends with a human. We simply cannot still trust AI to do that without human intervention (yet).\n\nAI still requires coding, configurations and right placement and orchestration and a human in between.\n\nLet's dive into what happened with Cursor AI.\n\nCursor AI lost customers overnight due to a situation where its AI-powered support bot hallucinated a policy change, falsely stating that users were not allowed to log in from multiple machines. This misinformation, coupled with actual technical issues causing users to get logged out when switching devices, led to mass cancellations and a significant erosion of user trust.\n\nWhat works best is a 50:50 approach.\n\nHalf Human & Half AI.\n\nOtherwise it's gonna be a mess in terms of financial terms as well as reputation wise which takes way longer to reinstate.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7319759618472042496/",
+    "related": []
+  },
+  {
+    "id": "croissant-mission-redefine-future-e-commerce",
+    "date": "2025-04-08",
+    "title": "Croissant is on a mission to redefine the future of e-commerce!",
+    "body": "Croissant is on a mission to redefine the future of e-commerce!\n\nShopping with Croissant unlocks the easiest resale experience and the highest buyback values at zero charge to the buyer/customer.\n\nIt's not a surprise that Croissant won the prestigious and coveted best backend e-commerce technology award for 2024 from Modern Retail. Croissant is always at the top of the game and takes care of its tech and monitoring very seriously.\n\nBy partnering up with PerfAgents for monitoring the third party integrations, Croissant was able to bring maximum value of synthetic monitoring by combining QA and Monitoring.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7315565297921388544/",
+    "related": []
+  },
+  {
+    "id": "3-aspects-define-if-product-using",
+    "date": "2025-03-09",
+    "title": "3 aspects that define if the product you are using or intending to use…",
+    "body": "3 aspects that define if the product you are using or intending to use is good for you or your team:\n\n1. You absolutely LOVE the product you're using, every day.\n\n2. The MAKERS of this product are good to work with when there is a need to talk to them.\n\n3. You can use the product and INTEGRATE well with your other set of tools.\n\nIf all of the above checks out, you are using the right product for your use case and you can be proud that you are a wise person.\n\nAre you a wise person?\n\nIf you don't think so, make the shift and make the right choice. It will be worth it!\n\nTry PerfAgents for \"user flow monitoring\" and avoid spending time on avoidable outages and latency issues.\n\nAfter all life is not to spend on triaging avoidable issues. Leave it to PerfAgents to monitor while you spend your quality time with your loved ones.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7304569238214619136/",
+    "related": []
+  },
+  {
+    "id": "understanding-how-real-users-interact-with",
+    "date": "2025-02-09",
+    "title": "Understanding how real users interact with a product is essential to…",
+    "body": "Understanding how real users interact with a product is essential to writing good end-to-end tests which can then be converted into synthetic monitoring scripts!\n\nWithout that understanding, your end-to-end tests are not 100% useful for preventing outages or finding issues before your end users do.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7294550649994702848/",
+    "related": []
+  },
+  {
+    "id": "timeout-option-playwright",
+    "date": "2025-01-31",
+    "title": "Timeout option in Playwright.",
+    "body": "Timeout option in Playwright.\n\nThe new timeout option in the latest release of Playwright V1.50 allows the step to fail individually. This is really going to be one of the most used features in Playwright\n\ntest('some test', async ({ page }) => {\n await test.step('a step', async () => {\n // This step can time out separately from the test\n }, { timeout: 1000 });\n});\n\nFull Release Notes:\nhttps://lnkd.in/eYauKRVM",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7291105499171729408/",
+    "related": []
+  },
+  {
+    "id": "does-matter-how-good-software-if",
+    "date": "2025-01-27",
+    "title": "It DOES NOT matter how GOOD your software is, if the most important…",
+    "body": "It DOES NOT matter how GOOD your software is, if the most important functionality in it does not WORK for your END USERS from their LOCATION, it's useless to them.\n\nZERO value.\n\nPrevent providing ZERO value to your customers.\n\nStart monitoring user flows!\n\nIt's NOT OPTIONAL. It's a must-to-have. And you don't need to spend a fortune to get that done. And you don't need fancy tools as well.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7289641034542665728/",
+    "related": []
+  },
+  {
+    "id": "3-things-focus-life-no-matter",
+    "date": "2025-01-27",
+    "title": "3 things to focus on in life, no matter who you are",
+    "body": "3 things to focus on in life, no matter who you are:\n\n1. Health\n2. Relationships\n3. Purpose in life.\n\nWithout health, no matter how much wealth you accumulate or how great a person you become, you don't get to enjoy the fruit of your labor.\n\nRelationships are no different. Family & Friends provide a sense of belonging. No matter what phase of life you are in, relationships are the second most impressive thing in life.\n\nPurpose in life! The third most important thing. It is something that gets you up in the morning and makes you hustle. Without a purpose there will be no fulfillment or satisfaction in life.\n\nNow, let's shift gears to the software world.\n\nIf the health of the software you own as a Product Owner or even as a DevOps engineer, or may be as a QA engineer, is determined by the availability and response time of how fast your pages or capabilities load, wouldn't you focus on it as the first priority. You will. If not, you should focus on it - the health of your application!\n\nAnd that's where proactive monitoring matters. Proactive monitoring is much like an Apple Watch for your business. It finds out early stage issues even before the issue becomes a problem. This simple concept of proactive monitoring can be done using \"synthetic monitoring scripts\".\n\nBig-Tech-Observability companies never promote it. Because if everyone does proactive monitoring, # of issues are gonna come down. If the # of issues are down, the million dollar \"Big-Tech Observability Tools\" does not take up the prime spot in triage calls.\n\nThe only thing needed to reduce the # of issues is to do \"proactive monitoring\" in an effective way.\n\nOver a period of 1 year PerfAgents guarantees a significant amount of effort and budget reduction by simply proactively monitoring your software using the right methods.\n\nRemember, it's always Health, Relationships and The Purpose that drives everything else and the first and foremost is always the health...\n\nBe it for your human self or for the applications you own!",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7289519151579103232/",
+    "related": []
+  },
+  {
+    "id": "early-days-perfagents-tried-generating-content",
+    "date": "2025-01-24",
+    "title": "In the early days of PerfAgents we tried generating content using…",
+    "body": "In the early days of PerfAgents we tried generating content using ChatGPT.\n\nHow did it go? It was terrible. It looked so artificial. It looked like it was generated even with some edits.\n\nI then delegated to my team to write content for PerfAgents. It was naive but the overall quality got slightly better. But after some time we glorified quantity over quality (after listening in to a few YouTube videos on that). Then what happened was obvious. The team went back to ChatGPT. This time I was not aware that we used ChatGPT but it became evident that content is not human written.\n\nFinally, I took charge and started writing and ever since there is an immense number of views on these posts even though engagement is still low.\n\nEvery post is written not generated.\n\nAnd that shows up!\n\nSo the point is, don't yet rely on AI for content. Especially when the content is king 👑! It's the \"give and take\" model that still works.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7288570274457767936/",
+    "related": []
+  },
+  {
+    "id": "if-sebastian-siemiatkowski-klarna-thinks-his",
+    "date": "2025-01-13",
+    "title": "If Sebastian Siemiatkowski of Klarna thinks that his own job will get…",
+    "body": "If Sebastian Siemiatkowski of Klarna thinks that his own job will get replaced by AI agents, there is still one (hidden) happy element about it. That is, the amount of time that he gets back to enjoy and work on other things he loves.\n\nAnd for me that - as a busy parent of young little ones and as a Founder, is getting back my 8 hours of sleep, ultra running training and quality family time with my wonderful family that supports me to put in the extra time that I now spend on building an amazing product that businesses and people love.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7284637468140658692/",
+    "related": []
+  },
+  {
+    "id": "2025-going-year-ai-agents",
+    "date": "2025-01-03",
+    "title": "2025 is going to be a year of AI agents!",
+    "body": "2025 is going to be a year of AI agents!\n\nGenerating monitoring scripts from natural language was the stepping stone for PerfAgents to bring AI into general use in 2024.\n\nWe have built exciting AI capabilities into the platform and are currently testing it! I can't wait to release it.\n\nStay tuned!",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7281167489441402880/",
+    "related": []
+  },
+  {
+    "id": "problem-invisibility",
+    "date": "2025-01-02",
+    "title": "The problem of invisibility!",
+    "body": "The problem of invisibility!\n\nDate: July 19, 2024.\n\nIt appeared to be a typical day.\n\nHustlers were hustling, and bustling environments worldwide were bustling with activities. Daily life seemed perfect and normal. But something catastrophic was going to happen across the world.\n\nThe world was about to witness \"the largest\" global IT outage in human history.\n\nWhat seemed to be a regular patch update turned out as \"the most faulty\" update and invited the \"blue screen of death,\" impacting 8.5 million Microsoft Windows devices.\n\nDigital public infrastructure crumbled!\n\nBusinesses, industries, and governments were disrupted!\n\nThousands of flights were grounded!\n\nCritical surgeries were postponed!\n\nAnd users of specific banking platforms faced difficulties accessing their accounts!\n\nWhat caused all of these?\n\nCrowdStrike, a renowned security software company, protected these devices.\n\nCrowdStrike runs \"Falcon,\" a software agent that operates at \"ring 0\" or kernel level of the OS for end-point detection and prevention. An update to this agent was rolled out with \"no regression tests\". There was no visibility to the problem, and there was no visibility to the impact in the beginning.\n\nThe result of the outage was catastrophic.\n\nIt proved one thing - \"Software runs the world.\"\n\nAnd it underlines one crucial thing in \"testing\" and \"monitoring\" space.\n\nNo matter how great your code is and your software product is, if your software is not tested in the way the end users use it, there is no guarantee that it will work the way it should. Visibility to the availability of the software is as important as the existence of the software itself.\n\nThat is the reason, Observability is a key area businesses worldwide should really focus on.\n\nNo matter whether the business is small or large, the emphasis on proper testing and monitoring is crucial. And visibility to the software system to see that it works fine from user locations is more relevent, even in this modern era of AI driven world.\n\nMonitoring the availability of the software is so critical to save humankind from these kind of impactful outages.\n\nEnsuring continuous monitoring will prevent such outages to a great extent.\n\nIf \"availability monitoring\" was in place, the range of disruption these software outages brought in could have been prevented or alleviated.\n\nThis is specifically relevant for SaaS and AI Agentic software.\n\nThis can happen to any software company and any software product. The only way to prevent such outages is to monitor for outages proactively and take action before they can have a widespread impact.\n\nThat's the story of visibility, the problem of invisibility.\n\nFor your SaaS offerings, use synthetic monitoring by mimicking critical browser flows using the Microsoft-backed open-source framework - Playwright.\n\nTo run these scripts on Amazon Web Services (AWS) worldwide, use PerfAgents. You don't have to live in the fear of unpredictability and invisibility.\n\nHappy New Year!",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7280773382072070144/",
+    "related": []
+  },
+  {
+    "id": "youre-sre-when-coworker-from-dev",
+    "date": "2025-01-01",
+    "title": "You're an SRE; and when your coworker from the dev team finds out that…",
+    "body": "You're an SRE; and when your coworker from the dev team finds out that prod might be down, what's the first thing that comes to your mind?\n\nIf such a scenario happens when you are not even notified by your DevOps tools, you need to definitely beef up the monitoring process and add synthetic monitoring to the mix.\n\nSynthetic monitoring is nothing but the process of mimicking user actions using a script and running it from various locations.\n\nThis simple process can prevent a lot of outages and save yourself from questions from the top such as:\n\n\"Why didn't our monitoring systems alert when our prod was down?\"\n\n\"Learning about an outage from the customer is embarrassing in the modern era. It's 2025, not 2015. SRE processes we have are not being very efficient\"\n\nSimply use Playwright and integrate it with PerfAgents to run it from global Amazon Web Services (AWS) locations. And avoid outages!\n\nHappy New Year's 🎇",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7280297688145793025/",
+    "related": []
+  },
+  {
+    "id": "benefits-over-features",
+    "date": "2024-12-13",
+    "title": "Benefits over Features!",
+    "body": "Benefits over Features!\n\nMy way of building things. And it always works.\n\nI'm tired of so many software providers out there selling features. I am not looking for a feature, duh! I am looking for a solution to my problem.\n\nSeeing this many times and over many years, I started thinking in a direction where it became a philosophy to build benefits instead of features and it got imbibed into my thought process. And it reflects in the product I am building.\n\nNot sure if it's always a good thing, but it's definitely showing results.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7273216203177836544/",
+    "related": []
+  },
+  {
+    "id": "sayanth-k-had-deeper-conversation-about",
+    "date": "2024-12-13",
+    "title": "Sayanth K and I had a deeper conversation about one thing.",
+    "body": "Sayanth K and I had a deeper conversation about one thing.\n\nThe way users use PerfAgents.\n\nIt's not always synthetic monitoring that is being done. There is more than that which is accomplished by using PerfAgents in really interesting ways.\n\nOne such example is the way a user is checking the dynamic values in the API responses and getting notified when there is a change in the value using an assertion mechanism built into our tool.\n\nDefinitely an interesting use case.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7273313260127375361/",
+    "related": []
+  },
+  {
+    "id": "automating-user-flow-should-easy",
+    "date": "2024-12-11",
+    "title": "Automating a user flow should be easy.",
+    "body": "Automating a user flow should be easy. Playwright is one of the best frameworks to do web automation.\n\nBut once you write the web automation scripts using Playwright you need an infra to run these scripts. Even if you want to run it periodically, it is kind of a pain in the ***.\n\nYou can spin up a Kubernetes (Official) cluster to run this. And use GitHub Actions or Jenkins or something else to schedule it. Solves the problem a bit. Good luck running Kubernetes (Official) which in itself is complex (I'm a Kubernetes Administrator and I know the complexity very well). Good luck if you can keep it inexpensive as well. To be honest, it becomes complex, expensive, a big problem in itself to maintain as well.\n\nBut does this mean you should not do web automation? No, web automation is essential to test your user flows and is even more important to test it periodically from different regions around the world.\n\nThat's the reason, there are synthetic monitoring products exists.\n\nNow, there are a few tools that do Playwright well, but I have not found a single tool that can be like a single pane of glass view for testing and monitoring like PerfAgents does. Please tag in the comments if there are good tools that can replace PerfAgents.\n\nPS: Don't get me started on AI agents. It's a wild topic and is really fascinating too.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7272596936212283392/",
+    "related": []
+  },
+  {
+    "id": "write-script-run-once-becomes-testing",
+    "date": "2024-11-16",
+    "title": "You write a script* and run it once, it becomes testing.",
+    "body": "You write a script* and run it once, it becomes testing.\n\nYou write a script* and run it multiple times, it becomes monitoring.\n\nYou write a *script and run it in a loop from multiple locations, it becomes synthetic monitoring!\n\n*Script can be a Playwright or a Selenium script. Or it can be a Cypress.io or a Puppeteer script.\n\nPS: It is as simple as that.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7263564769628942337/",
+    "related": []
+  },
+  {
+    "id": "quoting-conversation-with-one-our-early",
+    "date": "2024-11-13",
+    "title": "Quoting a conversation with one of our early adopters",
+    "body": "Quoting a conversation with one of our early adopters:\n\nEarly Adopter: \"What is PerfAgents?\"\nOur Team: PerfAgents is a unique monitoring layer designed for startups and enterprises. It checks whether an application or API is up or down!\n\nEarly Adopter: Well, that sounds like a solved problem!\nOur Team: Well, it preemptively identifies issues before they impact end users, much like the existing tools. However, the difference is that, with PerfAgents, you can monitor your software just as you use it. And that's how we stand out from the existing tools.\n\nEarly Adopter: Please tell me about the differentiation.\nOur Team: For sure. While other tools focus on monitoring production as a stand-alone activity, PerfAgents focuses on reusing the same test cases you have written for testing to be used for continuous monitoring.\n\nEarly Adopter: Sounds interesting!\nOur Team: Great. To ensure your software works well end-to-end for your end users from their location and browsers, you need to monitor your production system continuously from locations you anticipate your users will access from and from browsers you think your users will use.\n\nEarly Adopter: Agreed!\nOur Team: The whole user flow you anticipate your user will perform can be scripted, pre-scripted, using a test credential or a test user.\n\nEarly Adopter: Nice. Is that what synthetic monitoring is?\nOur Team: Yes, and the best way you do it is by employing end-to-end web automation practices.\n\nEarly Adopter: What language or platform can I use to do that?\nOur Team: Traditional monitoring systems developed custom recorders to record end-to-end tests for monitoring purposes. However, the downside is that they can only sometimes be run against lower environments, and even if they could, they would accumulate cost and add effort. That's why an excellent open-source web automation framework is most beneficial for these scenarios. The TLDR is: Use a good web automation framework to do your job.\n\nEarly Adopter: What would be a good example?\nOur Team: Playwright, an open-source tool developed by Microsoft, is the best web automation tool currently available. Other frameworks, such as Selenium, Cypress, and Pptr, can also be used for the same use cases.\n\nEarly Adopter: Great. What languages do they support?\nOur Team: They support a wide variety of languages, including Javascript and Python. Pptr, however, is for NodeJS alone, and it's not growing as much as the rest of the tools.\n\nEarly Adopter: Great. So, if I understand correctly, PerfAgents will let me run my Playwright script as a synthetic monitoring script to capture my application's performance data and alert me if latency is detected or if there is an issue loading any web page or API. Am I correct in my understanding?\nOur Team: Precisely.\n\nEarly Adopter: Great, let's talk about the next steps!\nOur Team: Sure!\n\nTLDR - Then, they come on board and live a happy life as a customer ever after.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7262683637681213440/",
+    "related": []
+  },
+  {
+    "id": "when-want-automate-deployments-kubernetes-environment",
+    "date": "2024-10-11",
+    "title": "When you want to automate deployments in a Kubernetes environment, you…",
+    "body": "When you want to automate deployments in a Kubernetes environment, you need more flexibility than a traditional CI/CD tool like Jenkins.\n\nTo learn more about how we deploy our\n\n<state-of-the-art>\n<cloud-native>\n<event-driven>\n<microservices>\n\ndesigned using a\n\n<web-scale>\n<multi-tenant>\n<scalable-architecture>\n\non Amazon Web Services (AWS),\n\nplease read our latest blog on engineering site:\n\nhttps://lnkd.in/e8dFcacA",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7250648544510885888/",
+    "related": []
+  },
+  {
+    "id": "developers-rely-heavily-two-platforms",
+    "date": "2024-08-07",
+    "title": "Developers rely heavily on two platforms",
+    "body": "Developers rely heavily on two platforms:\n\nA) Github for code\n\nand\n\nB) HuggingFace for model management\n\nGitHub threw me an error on my face yesterday while merging a simple PR. Now how about Hugging Face. It works good (so far).\n\nOutages are only a stable release away. Keep coding. Happy Wednesday!",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7226909373804027905/",
+    "related": []
+  },
+  {
+    "id": "would-love-do-some-learnings-from",
+    "date": "2024-08-06",
+    "title": "I would love to do some learnings from my LinkedIn network this time!",
+    "body": "I would love to do some learnings from my LinkedIn network this time!\n\nWhoever runs their services on Kubernetes (Official) clusters, what are you guys doing to make your clusters as cost efficient as possible?\n\nWhat dynamic and static measures do you do? Please comment below.\n\nThanks in advance!",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7226632570828926977/",
+    "related": []
+  },
+  {
+    "id": "synthetics-canary-combined-can-prevent-90",
+    "date": "2024-08-03",
+    "title": "Synthetics & Canary combined, can prevent 90% of world's software…",
+    "body": "Synthetics & Canary combined, can prevent 90% of world's software outages!\n\nHow?\n\nWith Synthetic Monitoring you can mimic users actions and can automate your end-to-end test cases.\n\nNow run this in lower environments or the-so-called-qa-env to find issues early on.\n\nOnce you find that there are no net-new issues after running the synthetic tests for 48 hours (bare minimum), you are good to release the code to production.\n\nNow, release using the canary method, so that you don't release it to the entire user set, but only a subset of your users.\n\nThis is the power combination of Synthetics+Canary and it can prevent 90 % of all outages happening across the web.\n\nIf you would like to catch a virtual coffee with me to discuss more, I'm only a few clicks away.\n\nHere is my calendar - https://lnkd.in/eYFH5uPr\n\nPS: Synthetic monitoring requires you to write synthetic tests, preferably written using Playwright or similar such frameworks. Canary deployment is a practice but there are tools such as Harness that have ready-to-go canary deployment processes.",
+    "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7225468268025704448/",
     "related": []
   }
 ]
