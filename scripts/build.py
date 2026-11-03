@@ -28,7 +28,7 @@ SITE = "https://ajith.ai"
 NOTES_JSON = ROOT / "notes" / "notes.json"
 NOTES_DIR = ROOT / "notes"
 HAND_AUTHORED = ["index.html", "about/index.html", "thyword/index.html", "perfagents/index.html", "404.html"]
-LATEST_COUNT = 3
+LATEST_COUNT = 10
 ID_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 PARTIAL_RE = re.compile(r"(<!-- partial:(\w+) -->)(.*?)(<!-- /partial:\2 -->)", re.S)
 LATEST_RE = re.compile(r"(<!-- notes:latest -->)(.*?)(<!-- /notes:latest -->)", re.S)
@@ -171,13 +171,27 @@ def page(*, title: str, description: str, path: str, body: str, og_type: str = "
 """
 
 
-def note_list(notes: list[dict]) -> str:
+def blurb(n: dict, limit: int = 150) -> str:
+    """Excerpt for a note list, skipping the opening words when they repeat the title."""
+    def clean(t: str) -> str:
+        t = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", t)
+        return " ".join(re.sub(r"[*`>#★]", "", t).split())
+    text = clean(re.sub(r"(?m)^\s*(?:[-*]|\d+\.)\s+", "", n["body"]))
+    title = clean(n["title"])
+    if not title.endswith("…") and text.startswith(title):
+        text = text[len(title):].lstrip(" ,:;.!?")
+    if len(text) <= limit:
+        return text
+    return text[:limit].rsplit(" ", 1)[0].rstrip(",.;:") + "…"
+
+
+def note_list(notes: list[dict], blurbs: bool = True) -> str:
     items = []
     for n in notes:
+        extra = f"<p>{esc(b)}</p>" if blurbs and (b := blurb(n)) else ""
         items.append(
             f'<li><time datetime="{n["date"]}">{nice_date(n["date"])}</time>'
-            f'<a href="/notes/{n["id"]}/">{esc(n["title"])}</a>'
-            f"<p>{esc(excerpt(n['body']))}</p></li>"
+            f'<a href="/notes/{n["id"]}/">{esc(n["title"])}</a>{extra}</li>'
         )
     return '<ul class="note-list">\n' + "\n".join(items) + "\n</ul>"
 
@@ -293,7 +307,7 @@ def build() -> tuple[dict[str, str], list[Path]]:
             if not LATEST_RE.search(text):
                 sys.exit("index.html is missing the <!-- notes:latest --> block")
             text = LATEST_RE.sub(
-                lambda m: f"{m.group(1)}\n{note_list(notes[:LATEST_COUNT])}\n{m.group(3)}", text
+                lambda m: f"{m.group(1)}\n{note_list(notes[:LATEST_COUNT], blurbs=False)}\n{m.group(3)}", text
             )
         out[rel_file] = text
 

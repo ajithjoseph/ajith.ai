@@ -51,35 +51,35 @@
   <article class="item">
     <div class="item-head">
       <h3><a href="/thyword/">ThyWord</a></h3>
-      <span class="meta">Co-Founder and CEO · 2026</span>
+      <span class="meta">Principal Engineer · 2026</span>
     </div>
-    <p>Our app. You share what's on your heart, and ThyWord gives you back a Bible verse and a reflection. Live on iOS and Android since February 2026.</p>
+    <p>Our app. You say what's on your heart, out loud, and get back a Bible verse and a reflection. Under the hood it's a React Native app for iOS and Android and a Java Spring Boot API on AWS. Scripture retrieval runs on pgvector, and requests route across several model providers with cost tracked per request. Live since February 2026 at <a href="https://thywordapp.com" target="_blank" rel="noopener">thywordapp.com</a>.</p>
   </article>
   <article class="item">
     <div class="item-head">
       <h3>Shepherd</h3>
-      <span class="meta">ThyWord · 2026</span>
+      <span class="meta">Principal Engineer · ThyWord · 2026</span>
     </div>
-    <p>An AI assistant people can text to reach their church. We built the first version at the Gloo AI Hackathon in October 2026. It's early, and we're talking with churches in Jacksonville.</p>
+    <p>Our B2B AI agent for churches, built under ThyWord. Each church gets one number its members can text. It answers from the church's own teaching and information, with citations, and hands off to a pastor when the member agrees. It runs on Gloo AI. We built the first version at the Gloo AI Hackathon in October 2026, and we're talking with churches in Jacksonville.</p>
   </article>
 </section>
 
 <section id="experiments" aria-labelledby="experiments-h">
-  <h2 id="experiments-h"><span class="num">02</span> Experiments</h2>
-  <p class="section-note">Proofs of concept that came out of problems we hit while building ThyWord.</p>
+  <h2 id="experiments-h"><span class="num">02</span> Dev tools</h2>
+  <p class="section-note">Tools that came out of problems we hit while building ThyWord.</p>
   <article class="item">
     <div class="item-head">
-      <h3><a href="https://evalstack.dev" target="_blank" rel="noopener">EvalStack</a></h3>
-      <span class="meta">Open source · MIT</span>
+      <h3><a href="https://github.com/ajithjoseph/evalstack" target="_blank" rel="noopener">EvalStack</a></h3>
+      <span class="meta">Open source · MIT · v0.0.1</span>
     </div>
-    <p>A framework for grading AI agent runs. It scores each step, handoff and full trajectory from 0 to 1, and every score comes with a written reason.</p>
+    <p>An eval framework for LLM apps, written in Python. Today it runs a prompt or a batch, scores each reply with exact match, contains or an LLM judge, and gives a pass or fail with a reason. It works with Anthropic, OpenAI or any function that returns text. Code on <a href="https://github.com/ajithjoseph/evalstack" target="_blank" rel="noopener">GitHub</a>.</p>
   </article>
   <article class="item">
     <div class="item-head">
       <h3><a href="https://shadowtel.com" target="_blank" rel="noopener">ShadowTel</a></h3>
-      <span class="meta">Proof of concept</span>
+      <span class="meta">Dev tool · In development</span>
     </div>
-    <p>A pre-merge gate for pull requests.</p>
+    <p>A GitHub Action that blocks a pull request when AI-written code breaks your database schema, internal APIs or architecture rules. Linters miss these. ShadowTel checks each PR against your real contracts and gives a clear pass or block. More at <a href="https://shadowtel.com" target="_blank" rel="noopener">shadowtel.com</a>.</p>
   </article>
 </section>
 
@@ -90,7 +90,7 @@
       <h3><a href="/perfagents/">PerfAgents</a></h3>
       <span class="meta">Founder · 2020 to 2025</span>
     </div>
-    <p>A synthetic monitoring platform. It grew to about 20 people at its peak, and Testing Mavens acquired the platform in April 2025.</p>
+    <p>A synthetic monitoring platform. Teams brought the Playwright, Cypress, Selenium or Puppeteer scripts they already had, and we ran them against production from AWS regions around the world, on Kubernetes or Lambda, scaled with KEDA and Karpenter. It was multi-tenant, with an environment per customer, and listed on AWS Marketplace. We grew to about 20 people, and Testing Mavens acquired the platform in April 2025.</p>
   </article>
   <article class="item">
     <div class="item-head">
@@ -116,12 +116,22 @@
       <span class="meta">O'Reilly · 2016 · Technical reviewer</span>
     </div>
   </article>
-  <h3 class="subhead">Latest notes</h3>
+</section>
+
+<section id="notes" aria-labelledby="notes-h">
+  <h2 id="notes-h"><span class="num">05</span> Latest notes</h2>
   <!-- notes:latest -->
 <ul class="note-list">
-<li><time datetime="2026-10-26">October 26, 2026</time><a href="/notes/karpathy-called-2023-hottest-new-programming/">Karpathy called it in 2023: &quot;The hottest new programming language is…</a><p>Karpathy called it in 2023: &quot;The hottest new programming language is English.&quot;</p></li>
-<li><time datetime="2026-10-23">October 23, 2026</time><a href="/notes/anthropic-just-launched-claude-duet/">Anthropic just launched Claude Duet.</a><p>Anthropic just launched Claude Duet.</p></li>
-<li><time datetime="2026-08-13">August 13, 2026</time><a href="/notes/4-gates-every-pr-passes-through/">4 gates every PR passes through.</a><p>4 gates every PR passes through. We&#x27;ve only automated 2.</p></li>
+<li><time datetime="2026-10-26">October 26, 2026</time><a href="/notes/karpathy-called-2023-hottest-new-programming/">Karpathy called it in 2023: &quot;The hottest new programming language is…</a></li>
+<li><time datetime="2026-10-23">October 23, 2026</time><a href="/notes/anthropic-just-launched-claude-duet/">Anthropic just launched Claude Duet.</a></li>
+<li><time datetime="2026-08-13">August 13, 2026</time><a href="/notes/4-gates-every-pr-passes-through/">4 gates every PR passes through.</a></li>
+<li><time datetime="2026-07-16">July 16, 2026</time><a href="/notes/handoff-where-multi-agent-systems-die/">The handoff is where multi agent systems die</a></li>
+<li><time datetime="2026-07-15">July 15, 2026</time><a href="/notes/ive-built-3-products-six-years/">I&#x27;ve built 3 products in six years.</a></li>
+<li><time datetime="2026-07-14">July 14, 2026</time><a href="/notes/valuable-learning-building-perfagents-sell-sleep/">A valuable learning building PerfAgents: sell the sleep, not the…</a></li>
+<li><time datetime="2026-06-06">June 6, 2026</time><a href="/notes/meaning-economy/">When intelligence is free, meaning is the scarce thing</a></li>
+<li><time datetime="2026-05-30">May 30, 2026</time><a href="/notes/some-prayers-meant-loud/">Some prayers are not meant to be loud.</a></li>
+<li><time datetime="2026-05-24">May 24, 2026</time><a href="/notes/build-with-ai-every-day/">I build with AI every day.</a></li>
+<li><time datetime="2026-05-14">May 14, 2026</time><a href="/notes/most-useful-language-learn-2026-might/">The most useful language to learn in 2026 might be your own.</a></li>
 </ul>
 <!-- /notes:latest -->
   <a class="more" href="/notes/">All notes</a>
