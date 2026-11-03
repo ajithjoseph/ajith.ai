@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shepherd · Ajith Joseph</title>
+<meta name="description" content="Shepherd is our B2B AI agent for churches. Each church gets one number its members can text, and it answers from that church's own teaching. Built under ThyWord in October 2026.">
+<link rel="canonical" href="https://ajith.ai/shepherd/">
+<meta property="og:title" content="Shepherd · Ajith Joseph">
+<meta property="og:description" content="Our B2B AI agent for churches. One number members can text, answered from the church's own teaching.">
+<meta property="og:url" content="https://ajith.ai/shepherd/">
+<meta property="og:type" content="article">
+<!-- partial:social -->
+<meta property="og:image" content="https://ajith.ai/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ajith Joseph, AI and Cloud Principal">
+<meta name="twitter:card" content="summary_large_image">
+<!-- /partial:social -->
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<!-- partial:header -->
+<header class="site-header">
+  <a class="skip" href="#main">Skip to content</a>
+  <a class="wordmark" href="/">Ajith Joseph</a>
+  <nav aria-label="Main">
+    <a href="/#building">Building</a>
+    <a href="/#writing">Writing</a>
+    <a href="/notes/">Notes</a>
+    <a href="/about/">About</a>
+  </nav>
+</header>
+<!-- /partial:header -->
+<main id="main" class="case">
+<h1>Shepherd</h1>
+<p class="case-lede">Text your church anything, any time. Shepherd gives each church one number its members can text, and answers from that church's own teaching.</p>
+<ul class="facts">
+  <li>Principal Engineer</li>
+  <li>Built October 2026</li>
+  <li>iMessage, RCS and SMS</li>
+  <li>ThyWord Inc., Jacksonville</li>
+</ul>
+
+<figure class="chat">
+  <div class="phone" role="img" aria-label="An example text conversation between a church member and Shepherd">
+    <p class="phone-head"><strong>Your church</strong>iMessage</p>
+    <p class="bubble out">What time is church on Sunday?</p>
+    <p class="bubble in">Sundays at 9 and 11. Want directions to the closest campus?</p>
+    <p class="bubble out">What does grace actually mean?</p>
+    <p class="bubble in">Pastor spoke on exactly that this Sunday. Here's that part of the sermon ▶</p>
+    <p class="bubble out">My dad is in the hospital. Can someone pray with us?</p>
+    <p class="bubble in">I'm so sorry. We're praying for him tonight. Pastor has time Saturday at 2:30. Want me to book it?</p>
+    <p class="bubble out">Yes please</p>
+    <p class="bubble in">Booked. You'll get a video link before the call.</p>
+  </div>
+  <figcaption>An example conversation. The church and the messages are made up.</figcaption>
+</figure>
+
+<div class="prose">
+  <h2>What it does</h2>
+  <ul>
+    <li>Answers questions from the church's own website, documents and sermons, with a link to where each answer came from.</li>
+    <li>Points families to the right ministry, with the sign-up link staff entered.</li>
+    <li>Hands people to someone at the church when they need care, prayer or a person. Crisis messages get 988 or 911 first.</li>
+    <li>Books, moves or cancels time with a pastor from the pastor's calendar, with a video link.</li>
+  </ul>
+  <p>It never plays counselor. It answers from the church's teaching and brings in a person.</p>
+
+  <h2>For church staff</h2>
+  <p>A dashboard where staff add websites, PDFs and sermon videos, preview exactly what members will get, follow up with anyone who needs a person, and see what people are asking about. A weekly digest goes out by email or text.</p>
+
+  <h2>Under the hood</h2>
+  <p>Python services for ingestion and messaging, and a Next.js dashboard. Church content is split into passages, embedded with BGE-M3 and stored in PostgreSQL with pgvector, kept separate for each church. Texts come in through SendBlue, get routed to the right church by the number they were sent to, and are answered through Gloo AI from that church's passages. Every reply is checked so it never makes up a phone number, email or link.</p>
+
+  <h2>Where it is</h2>
+  <p>We built the first version at the Gloo AI Hackathon in October 2026, and it works end to end on a live number. It's early, and we're talking with churches in Jacksonville.</p>
+</div>
+
+<ul class="links">
+  <li><a href="/thyword/">ThyWord, our app</a></li>
+</ul>
+</main>
+<!-- partial:footer -->
+<footer class="site-footer">
+  <p>© 2026 Ajith Joseph · Jacksonville, Florida</p>
+  <p><a href="https://www.linkedin.com/in/theajithjoseph/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/ajithjoseph" target="_blank" rel="noopener">GitHub</a></p>
+</footer>
+<!-- /partial:footer -->
+</body>
+</html>
