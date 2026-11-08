@@ -424,19 +424,21 @@
   // ---------- input ----------
   const keys = {};
   let mouseDown = false;
-  let locked = false;
+  let locked = false, lockFailed = false;
   function lockPointer() {
     try {
       const r = canvas.requestPointerLock && canvas.requestPointerLock();
-      if (r && r.catch) r.catch(() => { if (S.mode === 'play' && !DEBUG) setMode('paused'); });
-    } catch (e) { /* ignore */ }
+      if (r && r.catch) r.catch(() => { lockFailed = true; });
+    } catch (e) { lockFailed = true; }
+    if (!canvas.requestPointerLock) lockFailed = true;
   }
   document.addEventListener('pointerlockchange', () => {
     locked = document.pointerLockElement === canvas;
-    if (!locked && S.mode === 'play') setMode('paused');
+    if (locked) lockFailed = false;
+    if (!locked && S.mode === 'play' && !lockFailed) setMode('paused');
   });
   document.addEventListener('mousemove', (e) => {
-    if (S.mode !== 'play' || !locked) return;
+    if (S.mode !== 'play' || (!locked && !lockFailed)) return;
     const zoom = lerp(1, curW().zoom, player.ads);
     const k = 0.0022 * settings.sens * zoom;
     player.yaw -= e.movementX * k;
@@ -444,7 +446,7 @@
   });
   canvas.addEventListener('mousedown', (e) => {
     if (S.mode !== 'play') return;
-    if (!locked) { lockPointer(); return; }
+    if (!locked && !lockFailed) { lockPointer(); return; }
     if (e.button === 0) { mouseDown = true; player.firedThisPress = false; }
     if (e.button === 2) keys.ads = true;
   });
@@ -458,6 +460,7 @@
   document.addEventListener('keydown', (e) => {
     if (S.mode !== 'play') return;
     const k = e.code;
+    if (k === 'Escape' && !locked) { setMode('paused'); return; }
     keys[k] = true;
     if (['Space', 'KeyW', 'KeyA', 'KeyS', 'KeyD', 'KeyC', 'ShiftLeft', 'KeyG', 'KeyR'].includes(k)) e.preventDefault();
     if (k === 'Digit1') switchTo(0);
