@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Screenly · Average screen time calculator</title>
+<meta name="description" content="Type in your screen time for each day and Screenly works out your daily average, weekly total, weekday and weekend split, and what it adds up to over a year. Runs in your browser. Nothing is sent anywhere.">
+<link rel="canonical" href="https://screenly.ajith.ai/">
+<meta property="og:title" content="Screenly · Average screen time calculator">
+<meta property="og:description" content="Find your average daily screen time and what it adds up to over a year.">
+<meta property="og:url" content="https://screenly.ajith.ai/">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#1d5c47">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='7' y='2' width='18' height='28' rx='4' fill='%231d5c47'/%3E%3Crect x='10' y='19' width='3' height='6' fill='%23fff'/%3E%3Crect x='14.5' y='13' width='3' height='12' fill='%23fff'/%3E%3Crect x='19' y='16' width='3' height='9' fill='%23fff'/%3E%3C/svg%3E">
+<style>
+:root {
+  --bg: #fbfaf7; --card: #ffffff; --text: #1c1b19; --muted: #66635d; --rule: #e6e2d9;
+  --accent: #1d5c47; --accent-soft: #e5eee8; --warn: #a3471b; --warn-soft: #f6e7dd;
+  --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #121211; --card: #1a1a18; --text: #ecebe6; --muted: #9d9a93; --rule: #2e2d2a;
+    --accent: #7cc7a6; --accent-soft: #1b2a24; --warn: #f0a37a; --warn-soft: #33221a; }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 400 1rem/1.55 var(--sans); }
+.wrap { max-width: 56rem; margin: 0 auto; padding: 2rem 1.25rem 3rem; }
+header.top { display: flex; align-items: center; gap: .6rem; margin-bottom: 1.5rem; }
+header.top svg { width: 1.6rem; height: 1.6rem; flex: none; }
+header.top .name { font-weight: 650; font-size: 1.15rem; letter-spacing: -.01em; }
+h1 { font-size: clamp(1.7rem, 4.5vw, 2.4rem); line-height: 1.15; letter-spacing: -.02em; margin: 0 0 .5rem; }
+.lede { color: var(--muted); margin: 0 0 2rem; max-width: 40rem; }
+h2 { font-size: 1.05rem; margin: 0 0 .25rem; }
+.hint { color: var(--muted); font-size: .9rem; margin: 0 0 1rem; }
+.grid { display: grid; gap: 1.25rem; grid-template-columns: 1fr; }
+@media (min-width: 52rem) { .grid { grid-template-columns: 1.05fr 1fr; align-items: start; } }
+.card { background: var(--card); border: 1px solid var(--rule); border-radius: 14px; padding: 1.25rem; }
+.days { list-style: none; margin: 0 0 1rem; padding: 0; }
+.day { display: grid; grid-template-columns: 1fr auto auto auto; gap: .5rem; align-items: center; padding: .4rem 0; border-bottom: 1px solid var(--rule); }
+.day:last-child { border-bottom: 0; }
+.day .label { font-size: .95rem; }
+.day .label small { display: block; color: var(--muted); font-size: .8rem; }
+.field { display: flex; align-items: center; gap: .25rem; }
+.field span { color: var(--muted); font-size: .85rem; }
+input[type=number], input[type=date] {
+  font: inherit; color: var(--text); background: var(--bg); border: 1px solid var(--rule);
+  border-radius: 8px; padding: .45rem .5rem; width: 4rem; text-align: right;
+}
+input[type=date] { width: auto; text-align: left; }
+input:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+input.bad { border-color: var(--warn); background: var(--warn-soft); }
+button { font: inherit; cursor: pointer; border-radius: 8px; border: 1px solid var(--rule); background: var(--bg); color: var(--text); padding: .5rem .8rem; }
+button.primary { background: var(--accent); border-color: var(--accent); color: var(--bg); font-weight: 600; }
+button.icon { padding: .35rem .55rem; color: var(--muted); line-height: 1; }
+button.icon:hover { color: var(--warn); }
+.row { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+.big { font-size: clamp(2.2rem, 7vw, 3rem); font-weight: 700; letter-spacing: -.03em; line-height: 1.1; margin: .25rem 0 0; font-variant-numeric: tabular-nums; }
+.sub { color: var(--muted); margin: .15rem 0 1.25rem; }
+.stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: .75rem; margin: 0 0 1.25rem; }
+.stat { background: var(--accent-soft); border-radius: 10px; padding: .7rem .8rem; }
+.stat dt { font-size: .8rem; color: var(--muted); }
+.stat dd { margin: .1rem 0 0; font-weight: 650; font-size: 1.1rem; font-variant-numeric: tabular-nums; }
+.chart { display: flex; align-items: flex-end; gap: .35rem; height: 9rem; margin: .5rem 0 .25rem; padding-top: 1rem; position: relative; }
+.bar { flex: 1; background: var(--accent); border-radius: 5px 5px 0 0; min-height: 2px; position: relative; }
+.bar.over { background: var(--warn); }
+.avgline { position: absolute; left: 0; right: 0; border-top: 2px dashed var(--muted); pointer-events: none; }
+.avgline span { position: absolute; right: 0; top: -1.3rem; font-size: .75rem; color: var(--muted); background: var(--card); padding: 0 .25rem; }
+.xlabels { display: flex; gap: .35rem; font-size: .7rem; color: var(--muted); margin-bottom: 1rem; }
+.xlabels span { flex: 1; text-align: center; overflow: hidden; white-space: nowrap; }
+.goal { border-top: 1px solid var(--rule); padding-top: 1rem; margin-top: .5rem; }
+.goalmsg { margin: .6rem 0 0; font-size: .95rem; }
+.empty { color: var(--muted); }
+.note { color: var(--muted); font-size: .85rem; margin: 1rem 0 0; }
+details { margin-top: 1.25rem; }
+summary { cursor: pointer; font-weight: 600; }
+.how { color: var(--muted); font-size: .92rem; }
+.how li { margin: .25rem 0; }
+footer.bottom { margin-top: 2.5rem; color: var(--muted); font-size: .85rem; border-top: 1px solid var(--rule); padding-top: 1rem; }
+footer.bottom a { color: inherit; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="7" y="2" width="18" height="28" rx="4" fill="currentColor" style="color:var(--accent)"/><rect x="10" y="19" width="3" height="6" fill="var(--bg)"/><rect x="14.5" y="13" width="3" height="12" fill="var(--bg)"/><rect x="19" y="16" width="3" height="9" fill="var(--bg)"/></svg>
+  <span class="name">Screenly</span>
+</header>
+
+<main>
+<h1>What's your average screen time?</h1>
+<p class="lede">Type in how long you were on your screen each day. Screenly works out your daily average and what it adds up to. Everything stays in your browser.</p>
+
+<div class="grid">
+  <section class="card" aria-labelledby="in-h">
+    <h2 id="in-h">Your days</h2>
+    <p class="hint">On iPhone: Settings, then Screen Time, then See All App &amp; Website Activity. On Android: Settings, then Digital Wellbeing.</p>
+    <ul class="days" id="days"></ul>
+    <div class="row">
+      <button type="button" id="add">Add a day</button>
+      <button type="button" id="week">Reset to last 7 days</button>
+      <button type="button" id="clear">Clear times</button>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="out-h" aria-live="polite">
+    <h2 id="out-h">Your daily average</h2>
+    <div id="result"></div>
+    <div class="goal">
+      <label for="goalH"><strong>Daily goal</strong> <span class="hint">(optional)</span></label>
+      <div class="row" style="margin-top:.4rem">
+        <div class="field"><input type="number" id="goalH" min="0" max="24" inputmode="numeric" placeholder="0" aria-label="Goal hours"><span>h</span></div>
+        <div class="field"><input type="number" id="goalM" min="0" max="59" inputmode="numeric" placeholder="0" aria-label="Goal minutes"><span>m</span></div>
+      </div>
+      <p class="goalmsg" id="goalmsg"></p>
+    </div>
+  </section>
+</div>
+
+<details>
+  <summary>How it works</summary>
+  <ul class="how">
+    <li>Daily average is the total time divided by the number of days you filled in. Empty days are skipped, so they don't pull the average down.</li>
+    <li>Weekly total is the daily average times 7. Per year is the daily average times 365.</li>
+    <li>"Share of waking hours" assumes you're awake 16 hours a day.</li>
+    <li>Your numbers are saved on this device only, so they're still here next time. Nothing is sent anywhere.</li>
+  </ul>
+</details>
+</main>
+
+<footer class="bottom">
+  <p>Made by <a href="https://ajith.ai/">Ajith Joseph</a>. No accounts, no tracking.</p>
+</footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var KEY = "screenly.v1";
+  var WAKING = 16 * 60;
+  var daysEl = document.getElementById("days");
+  var resultEl = document.getElementById("result");
+  var goalH = document.getElementById("goalH");
+  var goalM = document.getElementById("goalM");
+  var goalMsg = document.getElementById("goalmsg");
+  var state = load() || fresh();
+
+  function iso(d) {
+    return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  }
+  function parseISO(s) { var p = s.split("-"); return new Date(+p[0], +p[1] - 1, +p[2]); }
+  function lastDays(n) {
+    var out = [], t = new Date();
+    for (var i = n; i >= 1; i--) {
+      var d = new Date(t.getFullYear(), t.getMonth(), t.getDate() - i);
+      out.push({ date: iso(d), h: "", m: "" });
+    }
+    return out;
+  }
+  function fresh() { return { days: lastDays(7), goalH: "", goalM: "" }; }
+  function load() {
+    try {
+      var s = JSON.parse(localStorage.getItem(KEY));
+      if (s && Array.isArray(s.days)) return s;
+    } catch (e) {}
+    return null;
+  }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+
+  function minutesOf(d) {
+    if (d.h === "" && d.m === "") return null;
+    var h = Number(d.h || 0), m = Number(d.m || 0);
+    if (!isFinite(h) || !isFinite(m) || h < 0 || m < 0 || m > 59 || h > 24) return NaN;
+    var t = h * 60 + m;
+    return t > 1440 ? NaN : t;
+  }
+  function fmt(min) {
+    min = Math.round(min);
+    var h = Math.floor(min / 60), m = min % 60;
+    if (h === 0) return m + "m";
+    return m === 0 ? h + "h" : h + "h " + m + "m";
+  }
+  function weekday(s, style) { return parseISO(s).toLocaleDateString(undefined, { weekday: style || "short" }); }
+  function nice(s) { return parseISO(s).toLocaleDateString(undefined, { month: "short", day: "numeric" }); }
+  function isWeekend(s) { var g = parseISO(s).getDay(); return g === 0 || g === 6; }
+
+  function renderDays() {
+    daysEl.innerHTML = "";
+    state.days.forEach(function (d, i) {
+      var li = document.createElement("li");
+      li.className = "day";
+      var bad = isNaN(minutesOf(d));
+      li.innerHTML =
+        '<label class="label" for="h' + i + '">' + weekday(d.date, "long") + "<small>" + nice(d.date) + "</small></label>" +
+        '<div class="field"><input type="number" id="h' + i + '" min="0" max="24" inputmode="numeric" placeholder="0" aria-label="Hours on ' + weekday(d.date, "long") + '"' + (bad ? ' class="bad"' : "") + "><span>h</span></div>" +
+        '<div class="field"><input type="number" id="m' + i + '" min="0" max="59" inputmode="numeric" placeholder="0" aria-label="Minutes on ' + weekday(d.date, "long") + '"' + (bad ? ' class="bad"' : "") + "><span>m</span></div>" +
+        '<button type="button" class="icon" aria-label="Remove ' + weekday(d.date, "long") + '" data-rm="' + i + '">✕</button>';
+      daysEl.appendChild(li);
+      li.querySelector("#h" + i).value = d.h;
+      li.querySelector("#m" + i).value = d.m;
+    });
+  }
+
+  function onInput(e) {
+    var t = e.target, id = t.id;
+    if (!/^[hm]\d+$/.test(id)) return;
+    var i = Number(id.slice(1)), key = id[0];
+    state.days[i][key] = t.value;
+    var bad = isNaN(minutesOf(state.days[i]));
+    ["h", "m"].forEach(function (k) { document.getElementById(k + i).classList.toggle("bad", bad); });
+    update();
+  }
+
+  function update() {
+    save();
+    var filled = [], invalid = 0;
+    state.days.forEach(function (d) {
+      var v = minutesOf(d);
+      if (v === null) return;
+      if (isNaN(v)) { invalid++; return; }
+      filled.push({ date: d.date, min: v });
+    });
+
+    if (!filled.length) {
+      resultEl.innerHTML = '<p class="big">0h</p><p class="sub empty">Fill in at least one day to see your average.</p>' +
+        (invalid ? '<p class="note">Some entries look wrong. Hours go up to 24 and minutes up to 59.</p>' : "");
+      goalMsg.textContent = "";
+      return;
+    }
+
+    var total = filled.reduce(function (a, b) { return a + b.min; }, 0);
+    var avg = total / filled.length;
+    var wk = filled.filter(function (d) { return !isWeekend(d.date); });
+    var we = filled.filter(function (d) { return isWeekend(d.date); });
+    var mean = function (arr) { return arr.reduce(function (a, b) { return a + b.min; }, 0) / arr.length; };
+    var hi = filled.reduce(function (a, b) { return b.min > a.min ? b : a; });
+    var lo = filled.reduce(function (a, b) { return b.min < a.min ? b : a; });
+    var yearH = avg * 365 / 60;
+    var goal = goalMinutes();
+
+    var max = Math.max.apply(null, filled.map(function (d) { return d.min; }).concat([goal || 0, 1]));
+    var bars = "", labels = "";
+    filled.slice().sort(function (a, b) { return a.date < b.date ? -1 : 1; }).forEach(function (d) {
+      var over = goal && d.min > goal;
+      bars += '<div class="bar' + (over ? " over" : "") + '" style="height:' + (d.min / max * 100).toFixed(1) + '%" title="' + weekday(d.date) + " " + nice(d.date) + ": " + fmt(d.min) + '"></div>';
+      labels += "<span>" + weekday(d.date).slice(0, 2) + "</span>";
+    });
+    var avgTop = (100 - avg / max * 100).toFixed(1);
+
+    resultEl.innerHTML =
+      '<p class="big" id="avg">' + fmt(avg) + "</p>" +
+      '<p class="sub">a day, across ' + filled.length + " day" + (filled.length === 1 ? "" : "s") + " you filled in</p>" +
+      '<dl class="stats">' +
+        stat("Total entered", fmt(total)) +
+        stat("Per week", fmt(avg * 7)) +
+        stat("Per year", Math.round(yearH).toLocaleString() + " hours") +
+        stat("That's about", (yearH / 24).toFixed(0) + " full days a year") +
+        stat("Weekdays", wk.length ? fmt(mean(wk)) : "no data") +
+        stat("Weekends", we.length ? fmt(mean(we)) : "no data") +
+        stat("Highest day", fmt(hi.min) + " (" + weekday(hi.date) + ")") +
+        stat("Lowest day", fmt(lo.min) + " (" + weekday(lo.date) + ")") +
+        stat("Share of waking hours", Math.round(avg / WAKING * 100) + "%") +
+        stat("Share of the whole day", Math.round(avg / 1440 * 100) + "%") +
+      "</dl>" +
+      '<div class="chart" aria-hidden="true">' + bars +
+        '<div class="avgline" style="top:calc(1rem + (100% - 1rem) * ' + avgTop / 100 + ')"><span>avg ' + fmt(avg) + "</span></div></div>" +
+      '<div class="xlabels" aria-hidden="true">' + labels + "</div>" +
+      (invalid ? '<p class="note">' + invalid + " day" + (invalid === 1 ? " was" : "s were") + " skipped because the time looks wrong. Hours go up to 24 and minutes up to 59.</p>" : "");
+
+    if (goal) {
+      var diff = avg - goal;
+      var hits = filled.filter(function (d) { return d.min <= goal; }).length;
+      goalMsg.textContent = diff > 0
+        ? "You're " + fmt(diff) + " a day over your goal. Cutting that would give you back about " + Math.round(diff * 365 / 60).toLocaleString() + " hours a year. You hit your goal on " + hits + " of " + filled.length + " days."
+        : "You're " + fmt(-diff) + " a day under your goal. You hit it on " + hits + " of " + filled.length + " days.";
+    } else {
+      goalMsg.textContent = "";
+    }
+  }
+  function stat(k, v) { return '<div class="stat"><dt>' + k + "</dt><dd>" + v + "</dd></div>"; }
+  function goalMinutes() {
+    var h = Number(goalH.value || 0), m = Number(goalM.value || 0);
+    if (!isFinite(h) || !isFinite(m) || h < 0 || m < 0 || m > 59) return 0;
+    var g = h * 60 + m;
+    return g > 0 && g <= 1440 ? g : 0;
+  }
+
+  daysEl.addEventListener("input", onInput);
+  daysEl.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-rm]");
+    if (!b) return;
+    state.days.splice(Number(b.getAttribute("data-rm")), 1);
+    renderDays(); update();
+  });
+  document.getElementById("add").addEventListener("click", function () {
+    var first = state.days.length ? parseISO(state.days[0].date) : new Date();
+    var d = new Date(first.getFullYear(), first.getMonth(), first.getDate() - 1);
+    state.days.unshift({ date: iso(d), h: "", m: "" });
+    renderDays(); update();
+    document.getElementById("h0").focus();
+  });
+  document.getElementById("week").addEventListener("click", function () {
+    state.days = lastDays(7); renderDays(); update();
+  });
+  document.getElementById("clear").addEventListener("click", function () {
+    state.days.forEach(function (d) { d.h = ""; d.m = ""; }); renderDays(); update();
+  });
+  [goalH, goalM].forEach(function (el) {
+    el.addEventListener("input", function () { state.goalH = goalH.value; state.goalM = goalM.value; update(); });
+  });
+
+  goalH.value = state.goalH || "";
+  goalM.value = state.goalM || "";
+  renderDays();
+  update();
+})();
+</script>
+</body>
+</html>
