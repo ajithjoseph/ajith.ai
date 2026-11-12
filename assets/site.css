@@ -151,6 +151,26 @@ h2 .num { color: var(--accent); }
 .section-note { color: var(--muted); font-size: 0.9375rem; margin: 0.75rem 0 0.25rem; }
 
 /* Items */
+/* App tiles on the home page. The whole tile is the link. */
+.tiles { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; }
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  height: 100%;
+  padding: 0.9rem 1rem 1rem;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  text-decoration: none;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+.tile:hover, .tile:focus-visible { border-color: var(--accent); background: var(--accent-soft); color: inherit; }
+.tile-kind { font: 400 0.75rem/1.4 var(--mono); color: var(--muted); }
+.tile-name { font-family: var(--serif); font-size: 1.125rem; font-weight: 600; letter-spacing: -0.01em; }
+.tile[target="_blank"] .tile-name::after { content: "\2197"; margin-left: 0.3em; font-family: var(--sans); font-size: 0.8em; color: var(--muted); }
+.tile:hover .tile-name { color: var(--accent); }
+.tile-line { color: var(--muted); font-size: 0.9375rem; line-height: 1.45; }
+
 .item { padding: 1.1rem 0 1.25rem; border-bottom: 1px solid var(--rule); }
 .item:last-of-type { border-bottom: 0; }
 .item-head {
@@ -223,12 +243,14 @@ ul.plain li { padding: 0.35rem 0; }
 
 @media (max-width: 640px) {
   .hero { grid-template-columns: 1fr; }
+  .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .portrait { order: -1; width: 96px; height: 96px; margin: 0 0 0.5rem; }
   .shots { grid-template-columns: repeat(3, 70%); overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 0.5rem; }
   .shots figure { scroll-snap-align: start; }
 }
 @media (max-width: 520px) {
   body { font-size: 1rem; }
+  .tiles { grid-template-columns: 1fr; }
   main { padding-block: 1.75rem 3.5rem; }
   section { margin-top: 3rem; }
   .lede { font-size: 1.125rem; }
