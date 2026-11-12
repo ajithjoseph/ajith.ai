@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arena · Ajith Joseph</title>
+<meta name="description" content="Arena is a small first-person duel game that runs in your browser. You against a bot, first to five rounds. Needs a keyboard and mouse.">
+<link rel="canonical" href="https://ajith.ai/arena/">
+<meta property="og:title" content="Arena · Ajith Joseph">
+<meta property="og:description" content="A small first-person duel game in the browser. You against a bot, first to five rounds.">
+<meta property="og:url" content="https://ajith.ai/arena/">
+<meta property="og:type" content="website">
+<!-- partial:social -->
+<meta property="og:image" content="https://ajith.ai/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ajith Joseph, AI and Cloud Principal">
+<meta name="twitter:card" content="summary_large_image">
+<!-- /partial:social -->
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/arena/arena.css">
+</head>
+<body>
+<!-- partial:header -->
+<header class="site-header">
+  <a class="skip" href="#main">Skip to content</a>
+  <a class="wordmark" href="/">Ajith Joseph</a>
+  <nav aria-label="Main">
+    <a href="/#building">Building</a>
+    <a href="/#writing">Writing</a>
+    <a href="/notes/">Notes</a>
+    <a href="/about/">About</a>
+  </nav>
+</header>
+<!-- /partial:header -->
+<main id="main" class="arena-page">
+<h1>Arena</h1>
+<p class="case-lede">A small first-person duel game. You against a bot, first to five rounds. It runs right here in your browser and needs a keyboard and mouse.</p>
+
+<div id="game" class="game">
+  <canvas id="view" aria-label="Game view"></canvas>
+
+  <div id="hud" class="hud" hidden>
+    <div class="score">
+      <span class="you" id="sYou">0</span>
+      <span class="mid"><span id="roundLabel">Round 1</span><small>First to 5</small></span>
+      <span class="bot" id="sBot">0</span>
+    </div>
+    <div class="enemy" id="enemy"><span>Bot</span><div class="bar"><div id="enemyBar"></div></div></div>
+    <div class="cross" id="cross"><i></i><i></i><i></i><i></i></div>
+    <div class="hitmark" id="hitmark"></div>
+    <div class="dmgnums" id="dmgnums"></div>
+    <div class="indicator" id="indicator"><i></i></div>
+    <div class="feed" id="feed"></div>
+    <div class="banner" id="banner"></div>
+    <div class="scope" id="scope" hidden></div>
+    <div class="hurt" id="hurt"></div>
+    <div class="vitals">
+      <strong id="hpNum">100</strong>
+      <div class="bar"><div id="hpBar"></div></div>
+    </div>
+    <div class="ammo">
+      <span id="wName">Rifle</span>
+      <strong id="ammoNum">30</strong><span class="max">/ ∞</span>
+      <div class="slots" id="slots"></div>
+    </div>
+  </div>
+
+  <div id="menu" class="panel">
+    <div class="panel-inner">
+      <h2>Pick your loadout</h2>
+      <fieldset class="choices" id="primaryChoice">
+        <legend>Primary</legend>
+        <label><input type="radio" name="primary" value="rifle" checked><span><b>Rifle</b>Full auto. Good at any range.</span></label>
+        <label><input type="radio" name="primary" value="shotgun"><span><b>Scattergun</b>Nine pellets. Brutal up close.</span></label>
+        <label><input type="radio" name="primary" value="sniper"><span><b>Longshot</b>Scoped. One headshot is enough.</span></label>
+      </fieldset>
+      <p class="also">You also carry a Sidearm, a Knife and one grenade per round.</p>
+      <fieldset class="choices small" id="diffChoice">
+        <legend>Bot</legend>
+        <label><input type="radio" name="diff" value="easy"><span><b>Easy</b></span></label>
+        <label><input type="radio" name="diff" value="normal" checked><span><b>Normal</b></span></label>
+        <label><input type="radio" name="diff" value="hard"><span><b>Hard</b></span></label>
+      </fieldset>
+      <div class="sliders">
+        <label>Mouse speed <input type="range" id="sens" min="0.2" max="3" step="0.05" value="1"><output id="sensOut">1.00</output></label>
+        <label>Field of view <input type="range" id="fov" min="70" max="110" step="1" value="90"><output id="fovOut">90</output></label>
+        <label>Volume <input type="range" id="vol" min="0" max="1" step="0.05" value="0.6"><output id="volOut">60</output></label>
+      </div>
+      <button type="button" class="play" id="playBtn">Play</button>
+      <p class="note" id="touchNote" hidden>This game needs a keyboard and mouse. It will not work on a phone or tablet.</p>
+      <details class="controls">
+        <summary>Controls</summary>
+        <ul>
+          <li><kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> move, <kbd>Space</kbd> jump, <kbd>Shift</kbd> sprint</li>
+          <li><kbd>C</kbd> crouch. Crouch while sprinting to slide.</li>
+          <li>Left mouse shoots, right mouse aims</li>
+          <li><kbd>1</kbd> primary, <kbd>2</kbd> sidearm, <kbd>3</kbd> knife, or the mouse wheel</li>
+          <li><kbd>R</kbd> reload, <kbd>G</kbd> throw grenade</li>
+          <li><kbd>Esc</kbd> pause</li>
+        </ul>
+      </details>
+    </div>
+  </div>
+
+  <div id="pause" class="panel" hidden>
+    <div class="panel-inner narrow">
+      <h2>Paused</h2>
+      <button type="button" class="play" id="resumeBtn">Resume</button>
+      <button type="button" class="ghost" id="quitBtn">Quit match</button>
+    </div>
+  </div>
+
+  <div id="over" class="panel" hidden>
+    <div class="panel-inner narrow">
+      <h2 id="overTitle">You win</h2>
+      <p class="final" id="overScore">5 to 3</p>
+      <ul class="stats" id="overStats"></ul>
+      <button type="button" class="play" id="againBtn">Rematch</button>
+      <button type="button" class="ghost" id="loadoutBtn">Change loadout</button>
+    </div>
+  </div>
+
+  <p class="nogl" id="nogl" hidden>Your browser could not start WebGL, so the game cannot run here.</p>
+</div>
+
+<p class="arena-foot">Built from scratch with plain WebGL. No libraries, no tracking, nothing to install. Your settings stay in this browser.</p>
+</main>
+<!-- partial:footer -->
+<footer class="site-footer">
+  <p>© 2026 Ajith Joseph · Jacksonville, Florida</p>
+  <p><a href="https://www.linkedin.com/in/theajithjoseph/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/ajithjoseph" target="_blank" rel="noopener">GitHub</a></p>
+</footer>
+<!-- /partial:footer -->
+<script src="/arena/game.js"></script>
+</body>
+</html>
