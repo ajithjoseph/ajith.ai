@@ -18,7 +18,7 @@ A small Python script turns <code>notes/notes.json</code> into note pages.
 
 | Page | What it covers |
 |---|---|
-| **[Home](https://ajith.ai)** | What I'm building now, dev tools, track record, writing and the latest notes |
+| **[Home](https://ajith.ai)** | App tiles, what I'm building now, dev tools, track record, writing and the latest notes |
 | **[ThyWord](https://ajith.ai/thyword/)** | Our voice-first app. Say what's on your heart and get back a Bible verse and a short reflection |
 | **[Shepherd](https://ajith.ai/shepherd/)** | Our AI agent for churches, built under ThyWord. One text number per church |
 | **[PerfAgents](https://ajith.ai/perfagents/)** | Synthetic monitoring SaaS I founded in 2020. Acquired by Testing Mavens in 2025 |
@@ -33,8 +33,8 @@ Most of these have their own repo. The site links the ones that are ready.
 |---|---|---|
 | **[EvalStack](https://evalstack.dev)** | Open source test kit for AI apps. Scores each reply and says why it passed or failed | [evalstack](https://github.com/ajithjoseph/evalstack) |
 | **[ShadowTel](https://shadowtel.com)** | GitHub Action that blocks AI-written code that breaks your schema, APIs or architecture rules. In development | |
-| **Arena** | A small first-person duel game in the browser. Plain WebGL, one file | [arena.ajith.ai](https://github.com/ajithjoseph/arena.ajith.ai) |
-| **Screenly** | Works out your average daily screen time. One page, data stays in your browser | [screenly.ajith.ai](https://github.com/ajithjoseph/screenly.ajith.ai) |
+| **[Arena](https://ajith.ai/arena/)** | A small first-person duel game in the browser. Plain WebGL, no libraries | [arena.ajith.ai](https://github.com/ajithjoseph/arena.ajith.ai) |
+| **[Screenly](https://ajith.ai/screenly/)** | Works out your average daily screen time. One page, data stays in your browser | [screenly.ajith.ai](https://github.com/ajithjoseph/screenly.ajith.ai) |
 | **Launch a Day** | Helps makers ship one small app every day, with streaks and a launches feed | [anapp.ajith.ai](https://github.com/ajithjoseph/anapp.ajith.ai) |
 
 ## Publishing
@@ -62,6 +62,7 @@ python3 -m http.server 8000   # browse at http://localhost:8000
 |---|---|
 | `index.html`, `about/`, `404.html` | Hand-written pages |
 | `thyword/`, `shepherd/`, `perfagents/` | Hand-written project pages |
+| `arena/`, `screenly/` | Arena and Screenly, live on the site |
 | `notes/notes.json` | Every note lives here |
 | `notes/<id>/index.html` | Generated, one per note |
 | `partials/` | Shared header, footer and social tags |
