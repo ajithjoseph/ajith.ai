@@ -12,7 +12,7 @@ A repo shows up on the home page when all of these are true:
 Tile kind: "Game" if the repo also has the topic "game", otherwise "Tool".
 Tile name: the first label of the website host, capitalized (screenly.ajith.ai -> Screenly).
 
-If the GitHub call fails, the script exits with an error and changes nothing.
+If the GitHub call fails or finds no apps, the script exits with an error and changes nothing.
 """
 from __future__ import annotations
 
@@ -63,6 +63,10 @@ def to_app(repo: dict) -> dict | None:
 def main() -> None:
     apps = [a for a in (to_app(r) for r in fetch()) if a]
     apps.sort(key=lambda a: a["name"].lower())
+    if not apps:
+        # Safety net: an empty result almost always means a missing topic or a bad
+        # API response, not that every app was retired. Keep the current list.
+        sys.exit("No tagged apps found. Not changing data/apps.json.")
     text = json.dumps(apps, indent=2, ensure_ascii=False) + "\n"
     if OUT.exists() and OUT.read_text(encoding="utf-8") == text:
         print(f"data/apps.json is up to date ({len(apps)} apps).")
