@@ -4,7 +4,7 @@
 What it does:
   1. Validates notes/notes.json.
   2. Renders notes/index.html and one page per note at notes/<id>/index.html.
-  3. Fills the "latest notes" block on the home page.
+  3. Fills the "latest notes" block and the app tiles on the home page.
   4. Syncs partials/header.html and partials/footer.html into every page.
   5. Writes sitemap.xml.
 
@@ -27,15 +27,40 @@ ROOT = Path(__file__).resolve().parent.parent
 SITE = "https://ajith.ai"
 NOTES_JSON = ROOT / "notes" / "notes.json"
 NOTES_DIR = ROOT / "notes"
-HAND_AUTHORED = ["index.html", "about/index.html", "thyword/index.html", "shepherd/index.html", "perfagents/index.html", "arena/index.html", "screenly/index.html", "404.html"]
+HAND_AUTHORED = ["index.html", "about/index.html", "thyword/index.html", "shepherd/index.html", "perfagents/index.html", "404.html"]
 LATEST_COUNT = 10
 ID_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 PARTIAL_RE = re.compile(r"(<!-- partial:(\w+) -->)(.*?)(<!-- /partial:\2 -->)", re.S)
 LATEST_RE = re.compile(r"(<!-- notes:latest -->)(.*?)(<!-- /notes:latest -->)", re.S)
+APPS_RE = re.compile(r"(<!-- apps:list -->)(.*?)(<!-- /apps:list -->)", re.S)
+APPS_JSON = ROOT / "data" / "apps.json"
 
 
 def esc(text: str) -> str:
     return html.escape(text, quote=True)
+
+
+# ---------- apps ----------
+# data/apps.json is written by scripts/fetch_apps.py from repos tagged with the
+# "ajith-app" topic on GitHub. Each app lives in its own repo on its own subdomain.
+
+def load_apps() -> list[dict]:
+    apps = json.loads(APPS_JSON.read_text(encoding="utf-8"))
+    for a in apps:
+        for field in ("name", "kind", "line", "url"):
+            if not isinstance(a.get(field), str) or not a[field].strip():
+                sys.exit(f"data/apps.json: app {a.get('name', '?')} is missing '{field}'")
+        if not a["url"].startswith("https://"):
+            sys.exit(f"data/apps.json: app {a['name']} url must start with https://")
+    return apps
+
+
+def app_tiles(apps: list[dict]) -> str:
+    return "\n".join(
+        f'    <li><a class="tile" href="{esc(a["url"])}"><span class="tile-kind">{esc(a["kind"])}</span>'
+        f'<span class="tile-name">{esc(a["name"])}</span><span class="tile-line">{esc(a["line"])}</span></a></li>'
+        for a in apps
+    )
 
 
 # ---------- notes ----------
@@ -309,6 +334,10 @@ def build() -> tuple[dict[str, str], list[Path]]:
             text = LATEST_RE.sub(
                 lambda m: f"{m.group(1)}\n{note_list(notes[:LATEST_COUNT], blurbs=False)}\n{m.group(3)}", text
             )
+            if not APPS_RE.search(text):
+                sys.exit("index.html is missing the <!-- apps:list --> block")
+            tiles = app_tiles(load_apps())
+            text = APPS_RE.sub(lambda m: f"{m.group(1)}\n{tiles}\n    {m.group(3)}", text)
         out[rel_file] = text
 
     out = {f: sync_partials(t, url_path(f)) for f, t in out.items()}

@@ -9,6 +9,15 @@ You are the publisher for ajith.ai. Ajith supplies the words. You handle everyth
 - "Update the home page: [change]"
 - "Add a project: [name, one line, link]"
 
+## Apps live on their own subdomains
+
+- Every app is its own repo on its own subdomain (screenly.ajith.ai, arena.ajith.ai). Never put an app in a folder of this repo.
+- The app tiles on the home page are generated between `<!-- apps:list -->` markers from `data/apps.json`. Don't edit them by hand.
+- `data/apps.json` is written by `scripts/fetch_apps.py` from public repos with the `ajith-app` topic, a description and an https website. The "Refresh app list" workflow runs it once a day and commits only when the list changed.
+- To add an app: create its repo with a `CNAME` file, add the Cloudflare CNAME record (DNS only) to `ajithjoseph.github.io`, then set the repo's website, description and the `ajith-app` topic. Add the `game` topic for games.
+- To retire an app: remove the topic or archive the repo, and delete its Cloudflare DNS record. Always delete the record.
+- `arena/` and `screenly/` here are only redirect pages to the old paths. Keep them so old links still work.
+
 ## Adding a note
 
 1. Add one object to the top of `notes/notes.json`:

@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Arena",
+    "kind": "Game",
+    "line": "A small first-person duel in your browser. You against a bot.",
+    "url": "https://arena.ajith.ai/",
+    "repo": "ajithjoseph/arena.ajith.ai"
+  },
+  {
+    "name": "Screenly",
+    "kind": "Tool",
+    "line": "Works out your average daily screen time.",
+    "url": "https://screenly.ajith.ai/",
+    "repo": "ajithjoseph/screenly.ajith.ai"
+  }
+]

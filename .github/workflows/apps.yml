@@ -1,0 +1,47 @@
+name: Refresh app list
+
+# Rebuilds the app tiles on the home page from repos tagged "ajith-app".
+# Runs once a day and on demand (Actions tab > Refresh app list > Run workflow).
+# It commits to main only when the list changed, and only data/apps.json,
+# index.html and sitemap.xml.
+
+on:
+  schedule:
+    - cron: "17 9 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-apps
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Fetch tagged repos
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/fetch_apps.py
+      - name: Rebuild and check
+        run: |
+          python scripts/build.py
+          python scripts/check.py
+      - name: Commit if the list changed
+        run: |
+          git add data/apps.json index.html sitemap.xml
+          if git diff --cached --quiet; then
+            echo "No change."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Refresh app list"
+          git push
