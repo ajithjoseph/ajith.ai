@@ -49,7 +49,13 @@ You are the publisher for ajith.ai. Ajith supplies the words. You handle everyth
 
 - GitHub Pages, deployed from the `main` branch root. `.nojekyll` turns off Jekyll.
 - `CNAME` holds `ajith.ai`. Don't delete it.
-- DNS for ajith.ai: A and AAAA records for GitHub Pages on the apex, `www` as a CNAME to `ajithjoseph.github.io`.
+- DNS for ajith.ai is on Cloudflare, proxied in front of GitHub Pages. GitHub still builds and serves the files.
+
+## Where new tools go
+
+- A small page with no server or database is a folder in this repo, live at `ajith.ai/<name>/`. Screenly and Arena work this way.
+- Anything with a server, a database or its own brand gets its own repo and its own domain or subdomain.
+- Don't keep a second copy of a folder tool in another repo, and don't point a subdomain at it.
 
 ## Pull requests
 
