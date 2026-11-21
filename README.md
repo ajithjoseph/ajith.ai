@@ -27,13 +27,13 @@ A small Python script turns <code>notes/notes.json</code> into note pages.
 
 ## Other projects
 
-Most of these have their own repo. The site links the ones that are ready.
+Small pages with no server live as folders in this repo, at ajith.ai/name. Anything with a server, a database or its own brand has its own repo. The site links the ones that are ready.
 
 | Project | What it does | Repo |
 |---|---|---|
 | **[EvalStack](https://evalstack.dev)** | Open source test kit for AI apps. Scores each reply and says why it passed or failed | [evalstack](https://github.com/ajithjoseph/evalstack) |
 | **[ShadowTel](https://shadowtel.com)** | GitHub Action that blocks AI-written code that breaks your schema, APIs or architecture rules. In development | |
-| **[Arena](https://ajith.ai/arena/)** | A small first-person duel game in the browser. Plain WebGL, no libraries | [arena.ajith.ai](https://github.com/ajithjoseph/arena.ajith.ai) |
+| **[Arena](https://ajith.ai/arena/)** | A small first-person duel game in the browser. Plain WebGL, no libraries | [arena/](arena/) |
 | **[Screenly](https://ajith.ai/screenly/)** | Shows what your screen time adds up to: days a year, years of your life, and a share image. One page, data stays in your browser | [screenly/](screenly/) |
 | **Launch a Day** | Helps makers ship one small app every day, with streaks and a launches feed | [anapp.ajith.ai](https://github.com/ajithjoseph/anapp.ajith.ai) |
 
