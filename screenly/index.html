@@ -54,6 +54,18 @@ summary { cursor: pointer; color: var(--accent); font-weight: 600; font-size: .9
 .days label { font-size: .8rem; color: var(--muted); display: block; }
 button { font: inherit; cursor: pointer; border-radius: 10px; border: 1px solid var(--rule); background: var(--bg); color: var(--text); padding: .55rem .9rem; }
 button.primary { background: var(--accent); border-color: var(--accent); color: var(--bg); font-weight: 650; }
+.find { margin-top: 1rem; background: var(--accent-soft); border-radius: 12px; padding: .85rem 1rem; }
+.find-head { display: flex; justify-content: space-between; align-items: center; gap: .5rem; flex-wrap: wrap; }
+.find-head p { margin: 0; font-weight: 650; }
+.tabs { display: inline-flex; background: var(--bg); border: 1px solid var(--rule); border-radius: 999px; padding: 2px; }
+.tab { border: 0; border-radius: 999px; padding: .3rem .8rem; font-size: .88rem; background: transparent; color: var(--muted); }
+.tab[aria-pressed="true"] { background: var(--accent); color: var(--bg); font-weight: 650; }
+.steps { margin: .7rem 0 0; padding: 0; list-style: none; counter-reset: s; }
+.steps li { counter-increment: s; position: relative; padding: .3rem 0 .3rem 2.1rem; font-size: .95rem; }
+.steps li::before { content: counter(s); position: absolute; left: 0; top: .25rem; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--accent); color: var(--bg); font-size: .8rem; font-weight: 700; display: grid; place-items: center; }
+.steps[hidden] { display: none; }
+.aside { color: var(--muted); font-size: .85rem; }
+.linkbtn { border: 0; background: none; padding: 0; color: var(--accent); font-weight: 650; text-decoration: underline; font-size: inherit; }
 .err { color: var(--warn); font-size: .9rem; margin: .5rem 0 0; min-height: 1.2em; }
 #out[hidden] { display: none; }
 .reveal { text-align: center; padding: 1.75rem 1.25rem; }
@@ -97,7 +109,28 @@ footer.bottom a { color: inherit; }
     <div class="field"><input class="time" type="number" id="m" min="0" max="59" inputmode="numeric" placeholder="0" aria-label="Minutes"><span>min</span></div>
   </div>
   <p class="err" id="err" role="alert"></p>
-  <p class="hint">iPhone: Settings, Screen Time, See All App &amp; Website Activity, then Week. Use the "Daily Average". Android: Settings, Digital Wellbeing.</p>
+  <div class="find" aria-labelledby="find-h">
+    <div class="find-head">
+      <p id="find-h">Where to find it</p>
+      <div class="tabs" role="group" aria-label="Choose your phone">
+        <button type="button" class="tab" data-os="ios" aria-pressed="true">iPhone</button>
+        <button type="button" class="tab" data-os="android" aria-pressed="false">Android</button>
+      </div>
+    </div>
+    <ol class="steps" data-for="ios">
+      <li>Open <b>Settings</b></li>
+      <li>Tap <b>Screen Time</b></li>
+      <li>Tap <b>See All App &amp; Website Activity</b></li>
+      <li>Tap <b>Week</b> at the top</li>
+      <li>Copy the <b>Daily Average</b> into the boxes above</li>
+    </ol>
+    <ol class="steps" data-for="android" hidden>
+      <li>Open <b>Settings</b></li>
+      <li>Tap <b>Digital Wellbeing &amp; parental controls</b> <span class="aside">(on some phones it's just "Digital Wellbeing")</span></li>
+      <li>Tap the chart to see each day this week</li>
+      <li>Use the daily average if your phone shows one. If not, <button type="button" class="linkbtn" id="openHelper">type in a few days here</button> and we'll work it out</li>
+    </ol>
+  </div>
 
   <details id="helper">
     <summary>Only have day-by-day numbers? Average them here</summary>
@@ -341,6 +374,26 @@ footer.bottom a { color: inherit; }
   [hEl, mEl, ageEl].forEach(function (el) { el.addEventListener("input", render); });
   cutEl.addEventListener("input", renderCut);
   $("days").addEventListener("input", save);
+
+  function pickOS(os) {
+    Array.prototype.forEach.call(document.querySelectorAll(".tab"), function (t) { t.setAttribute("aria-pressed", String(t.getAttribute("data-os") === os)); });
+    Array.prototype.forEach.call(document.querySelectorAll(".steps"), function (l) { l.hidden = l.getAttribute("data-for") !== os; });
+  }
+  function detectOS() {
+    var ua = navigator.userAgent || "";
+    if (/Android/i.test(ua)) return "android";
+    if (/iPhone|iPad|iPod/i.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1)) return "ios";
+    return "ios";
+  }
+  Array.prototype.forEach.call(document.querySelectorAll(".tab"), function (t) {
+    t.addEventListener("click", function () { pickOS(t.getAttribute("data-os")); });
+  });
+  $("openHelper").addEventListener("click", function () {
+    $("helper").open = true;
+    $("helper").scrollIntoView({ behavior: "smooth", block: "start" });
+    $("d0").focus({ preventScroll: true });
+  });
+  pickOS(detectOS());
 
   var st = load();
   hEl.value = st.h || ""; mEl.value = st.m || ""; ageEl.value = st.age || "";
