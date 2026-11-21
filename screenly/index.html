@@ -75,10 +75,16 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
 .reveal .life { margin: 1.1rem 0 0; font-size: 1.05rem; }
 .reveal .life strong { color: var(--accent); }
 .grid { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
-.tile { background: var(--accent-soft); border-radius: 12px; padding: .8rem .85rem; }
-.tile b { display: block; font-size: 1.45rem; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
-.tile span { font-size: .88rem; }
+.tile { background: var(--accent-soft); border-radius: 12px; padding: .85rem .9rem; }
+.tile-top { display: flex; align-items: center; gap: .5rem; }
+.tile b { display: block; font-size: 2.2rem; line-height: 1.05; letter-spacing: -.035em; color: var(--accent); font-variant-numeric: tabular-nums; }
+.ico { width: 1.3rem; height: 1.3rem; flex: none; fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.tile span { display: block; font-size: .92rem; font-weight: 600; margin-top: .35rem; }
 .tile small { display: block; color: var(--muted); font-size: .76rem; margin-top: .15rem; }
+.tile.wide { grid-column: 1 / -1; }
+.bar { height: .55rem; background: var(--bg); border-radius: 999px; overflow: hidden; margin-top: .6rem; }
+.bar i { display: block; height: 100%; background: var(--accent); border-radius: 999px; }
+.picbtns { display: flex; justify-content: center; margin-top: .6rem; }
 input[type=range] { width: 100%; accent-color: var(--accent); margin: .5rem 0; }
 .cutline { font-size: 1.05rem; margin: .25rem 0 0; }
 .cutline strong { color: var(--accent); }
@@ -169,7 +175,7 @@ footer.bottom a { color: inherit; }
 
   <section class="card" aria-labelledby="share-h">
     <h2 id="share-h">Share it</h2>
-    <p class="note" style="margin:0">Makes an image you can post. Only your yearly number goes on it, never your age.</p>
+    <p class="note" style="margin:0">Makes an image you can post. Only your yearly number goes on it, never your age. There are 10 pictures, each with its own "what else" line.</p>
     <div class="share-actions">
       <button type="button" class="primary" id="shareBtn">Share image</button>
       <button type="button" id="saveBtn">Save image</button>
@@ -177,6 +183,7 @@ footer.bottom a { color: inherit; }
     </div>
     <p class="status" id="shareMsg"></p>
     <img id="preview" alt="Preview of the share image" hidden>
+    <div class="picbtns"><button type="button" id="nextPic">Try another picture</button></div>
   </section>
 </div>
 
@@ -196,6 +203,14 @@ footer.bottom a { color: inherit; }
   var hEl = $("h"), mEl = $("m"), ageEl = $("age"), cutEl = $("cut");
   var DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   var current = null;
+  function ico(d) { return '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">' + d + "</svg>"; }
+  var ICON = {
+    work: ico('<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/>'),
+    book: ico('<path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H20v15H5.5A1.5 1.5 0 0 0 4 19.5z"/><path d="M4 19.5A1.5 1.5 0 0 0 5.5 21H20"/>'),
+    film: ico('<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/>'),
+    lang: ico('<path d="M4 5h11v8H8l-4 3z"/><path d="M15 9h5v8l-3-2h-6v-2"/>'),
+    home: ico('<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M12 18s-3-1.8-3-3.6a1.6 1.6 0 0 1 3-.8 1.6 1.6 0 0 1 3 .8C15 16.2 12 18 12 18z"/>')
+  };
 
   function num(x, d) {
     return Number(x).toLocaleString(undefined, { maximumFractionDigits: d || 0, minimumFractionDigits: 0 });
@@ -262,14 +277,23 @@ footer.bottom a { color: inherit; }
     $("life").innerHTML = life;
 
     var items = [
-      [s.yearH / 40, "full-time work weeks", "at 40 hours a week"],
-      [s.yearH / 6, "books read", "at about 6 hours a book"],
-      [s.yearH / 2, "movies", "at 2 hours a movie"],
-      [s.yearH / 700, "new languages", "like Spanish or French, at 600 to 750 hours each (US Foreign Service Institute)"]
+      [s.yearH / 40, "full-time work weeks", "at 40 hours a week", "work"],
+      [s.yearH / 6, "books read", "at about 6 hours a book", "book"],
+      [s.yearH / 2, "movies", "at 2 hours a movie", "film"],
+      [s.yearH / 700, "new languages", "like Spanish or French, at 600 to 750 hours each (US Foreign Service Institute)", "lang"]
     ];
-    $("else").innerHTML = items.map(function (it) {
-      return '<div class="tile"><b>' + num(it[0], it[0] < 10 ? 1 : 0) + "</b><span>" + it[1] + "</span><small>" + it[2] + "</small></div>";
+    var html = items.map(function (it) {
+      return '<div class="tile"><div class="tile-top">' + ICON[it[3]] + "<b>" + num(it[0], it[0] < 10 ? 1 : 0) + "</b></div><span>" + it[1] + "</span><small>" + it[2] + "</small></div>";
     }).join("");
+    var eve = s.yearH / 3, months = eve / 30.4;
+    var span = months >= 1 ? num(months, months < 10 ? 1 : 0) + " months" : num(eve / 7, 1) + " weeks";
+    var pct = Math.min(100, eve / 365 * 100);
+    html += '<div class="tile wide" id="family"><div class="tile-top">' + ICON.home + "<b>" + num(eve) + "</b></div><span>evenings with family</span>" +
+      "<small>at 3 hours an evening. That's every evening for " + span + ".</small>" +
+      '<div class="bar" role="img" aria-label="' + Math.round(pct) + ' percent of a year of evenings"><i style="width:' + pct.toFixed(1) + '%"></i></div>' +
+      "<small>" + (eve >= 365 ? "More than a whole year of evenings." : Math.round(pct) + "% of a year's evenings.") + "</small></div>";
+    $("else").innerHTML = html;
+    scheduleCard();
 
     var max = Math.max(5, Math.min(180, Math.floor(s.avg / 5) * 5));
     cutEl.max = max;
@@ -319,49 +343,163 @@ footer.bottom a { color: inherit; }
     render();
   });
 
-  function drawCard() {
-    var s = current, W = 1080, H = 1350;
-    var c = document.createElement("canvas"); c.width = W; c.height = H;
-    var x = c.getContext("2d");
-    x.fillStyle = "#1d5c47"; x.fillRect(0, 0, W, H);
-    x.fillStyle = "#fbfaf7"; x.textAlign = "center";
-    var f = "system-ui, -apple-system, Segoe UI, Roboto, sans-serif";
-    x.font = "500 52px " + f; x.fillText("My screen time adds up to", W / 2, 400);
-    x.font = "800 300px " + f; x.fillText(num(s.days), W / 2, 700);
-    x.font = "600 64px " + f; x.fillText("full days a year", W / 2, 810);
-    x.font = "400 44px " + f; x.globalAlpha = .85;
-    x.fillText(hm(s.avg) + " a day, every day", W / 2, 900);
-    x.globalAlpha = 1;
-    x.font = "600 48px " + f; x.fillText("What's yours?", W / 2, 1120);
-    x.font = "400 40px " + f; x.globalAlpha = .8; x.fillText("ajith.ai/screenly", W / 2, 1185);
-    return c;
+  // Ten share illustrations. Each is drawn here as an SVG, so nothing is downloaded.
+  // n(h) turns yearly hours into the "what else" count shown on the card.
+  var P = { panel: "#e8f1ec", warm: "#f6e7d8", night: "#23395b", sky: "#cfe6f0", deep: "#1d5c47", mid: "#2f8a68", mint: "#7cc7a6", cream: "#fbfaf7", orange: "#e8875a", rust: "#d9744a", yellow: "#f2c94c", brown: "#8a5a3c", pink: "#f2a7a0", skin1: "#8a5a3c", skin2: "#f2c9a0", skin3: "#c98a5a" };
+  function bg(c) { return '<rect width="960" height="520" rx="40" fill="' + c + '"/>'; }
+  var ILLOS = [
+    { label: "books", n: function (h) { return h / 6; }, svg:
+      bg(P.panel) +
+      '<rect x="170" y="420" width="620" height="18" rx="6" fill="' + P.brown + '"/>' +
+      '<rect x="220" y="200" width="70" height="220" rx="8" fill="' + P.deep + '"/><rect x="236" y="236" width="38" height="8" rx="4" fill="' + P.cream + '" opacity=".7"/>' +
+      '<rect x="296" y="240" width="56" height="180" rx="8" fill="' + P.orange + '"/><rect x="308" y="270" width="32" height="8" rx="4" fill="' + P.cream + '" opacity=".7"/>' +
+      '<rect x="358" y="180" width="80" height="240" rx="8" fill="' + P.yellow + '"/><rect x="374" y="214" width="48" height="10" rx="5" fill="' + P.deep + '" opacity=".5"/>' +
+      '<rect x="444" y="230" width="60" height="190" rx="8" fill="' + P.mint + '"/>' +
+      '<rect x="520" y="210" width="64" height="210" rx="8" fill="' + P.mid + '" transform="rotate(14 552 420)"/>' +
+      '<rect x="616" y="380" width="160" height="40" rx="8" fill="' + P.orange + '"/><rect x="628" y="340" width="140" height="40" rx="8" fill="' + P.deep + '"/><rect x="622" y="300" width="150" height="40" rx="8" fill="' + P.yellow + '"/>' +
+      '<path d="M664 300h44l8-46h-60z" fill="' + P.rust + '"/><ellipse cx="672" cy="210" rx="20" ry="44" fill="' + P.mid + '" transform="rotate(-20 672 250)"/><ellipse cx="702" cy="206" rx="20" ry="46" fill="' + P.mint + '" transform="rotate(18 702 250)"/>' },
+    { label: "evenings with family", n: function (h) { return h / 3; }, svg:
+      bg(P.warm) +
+      '<rect x="0" y="430" width="960" height="90" fill="' + P.rust + '" opacity=".25"/>' +
+      '<circle cx="800" cy="170" r="90" fill="' + P.yellow + '" opacity=".35"/><rect x="796" y="190" width="8" height="240" fill="' + P.brown + '"/><path d="M750 190h100l-24-70h-52z" fill="' + P.yellow + '"/>' +
+      '<rect x="220" y="220" width="500" height="120" rx="56" fill="' + P.rust + '"/>' +
+      '<circle cx="350" cy="200" r="36" fill="' + P.skin1 + '"/><rect x="306" y="236" width="88" height="120" rx="44" fill="' + P.deep + '"/>' +
+      '<circle cx="600" cy="196" r="36" fill="' + P.skin2 + '"/><rect x="556" y="232" width="88" height="124" rx="44" fill="' + P.mid + '"/>' +
+      '<circle cx="476" cy="240" r="28" fill="' + P.skin3 + '"/><rect x="442" y="268" width="68" height="90" rx="34" fill="' + P.yellow + '"/>' +
+      '<rect x="240" y="320" width="460" height="100" rx="40" fill="' + P.orange + '"/><circle cx="240" cy="340" r="44" fill="' + P.rust + '"/><circle cx="700" cy="340" r="44" fill="' + P.rust + '"/>' +
+      '<path d="M476 150s-26-16-26-32a14 14 0 0 1 26-8 14 14 0 0 1 26 8c0 16-26 32-26 32z" fill="' + P.pink + '"/>' },
+    { label: "new languages", n: function (h) { return h / 700; }, svg:
+      bg(P.panel) +
+      '<rect x="120" y="80" width="400" height="170" rx="40" fill="' + P.deep + '"/><path d="M190 246l-20 60 70-60z" fill="' + P.deep + '"/>' +
+      '<text x="320" y="196" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-weight="800" font-size="96" fill="' + P.cream + '">Hola</text>' +
+      '<rect x="420" y="230" width="440" height="170" rx="40" fill="' + P.orange + '"/><path d="M790 396l20 60-70-60z" fill="' + P.orange + '"/>' +
+      '<text x="640" y="346" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-weight="800" font-size="88" fill="' + P.cream + '">Bonjour</text>' +
+      '<rect x="150" y="330" width="230" height="110" rx="32" fill="' + P.yellow + '"/><text x="265" y="404" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-weight="800" font-size="60" fill="' + P.deep + '">Ciao</text>' },
+    { label: "full-time work weeks", n: function (h) { return h / 40; }, svg:
+      bg(P.panel) +
+      '<rect x="230" y="70" width="440" height="390" rx="28" fill="' + P.cream + '"/><rect x="230" y="70" width="440" height="90" rx="28" fill="' + P.deep + '"/><rect x="230" y="130" width="440" height="30" fill="' + P.deep + '"/>' +
+      '<rect x="300" y="44" width="18" height="56" rx="9" fill="' + P.mid + '"/><rect x="582" y="44" width="18" height="56" rx="9" fill="' + P.mid + '"/>' +
+      (function () { var o = ""; for (var r = 0; r < 4; r++) for (var c = 0; c < 5; c++) { var x = 262 + c * 80, y = 186 + r * 66, done = (r * 5 + c) < 13; o += '<rect x="' + x + '" y="' + y + '" width="58" height="48" rx="10" fill="' + (done ? P.mint : P.panel) + '"/>' + (done ? '<path d="M' + (x + 16) + ' ' + (y + 25) + 'l9 9 17-17" stroke="' + P.deep + '" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>' : ""); } return o; })() +
+      '<rect x="720" y="300" width="110" height="130" rx="16" fill="' + P.orange + '"/><path d="M830 330h20a26 26 0 0 1 0 52h-20" stroke="' + P.orange + '" stroke-width="16" fill="none"/><path d="M750 280c0-20 16-20 16-40M790 280c0-20 16-20 16-40" stroke="' + P.mid + '" stroke-width="8" fill="none" stroke-linecap="round"/>' },
+    { label: "one-hour walks", n: function (h) { return h; }, svg:
+      bg(P.sky) +
+      '<circle cx="760" cy="130" r="64" fill="' + P.yellow + '"/>' +
+      '<path d="M0 330q240-150 480-40t480-60v290H0z" fill="' + P.mint + '"/><path d="M0 400q300-120 620-20t340-20v160H0z" fill="' + P.mid + '"/>' +
+      '<path d="M420 520q40-80 140-120t120-80" stroke="' + P.cream + '" stroke-width="34" fill="none" stroke-linecap="round"/>' +
+      '<path d="M180 330l40-110 40 110z" fill="' + P.deep + '"/><rect x="214" y="330" width="12" height="30" fill="' + P.brown + '"/>' +
+      '<path d="M270 320l30-80 30 80z" fill="' + P.deep + '"/><rect x="294" y="320" width="10" height="24" fill="' + P.brown + '"/>' +
+      '<path d="M800 300l36-96 36 96z" fill="' + P.deep + '"/><rect x="830" y="300" width="12" height="28" fill="' + P.brown + '"/>' +
+      '<circle cx="600" cy="300" r="16" fill="' + P.skin2 + '"/><rect x="588" y="318" width="24" height="46" rx="12" fill="' + P.orange + '"/><path d="M594 362l-10 30M606 362l12 30" stroke="' + P.deep + '" stroke-width="8" stroke-linecap="round"/>' },
+    { label: "weekends away", n: function (h) { return h / 48; }, svg:
+      bg(P.warm) +
+      '<circle cx="480" cy="300" r="120" fill="' + P.yellow + '" opacity=".6"/>' +
+      '<path d="M60 440l220-300 220 300z" fill="' + P.mid + '"/><path d="M230 208l50-68 50 68-25 18-25-18-25 18z" fill="' + P.cream + '"/>' +
+      '<path d="M420 440l230-340 250 340z" fill="' + P.deep + '"/><path d="M600 174l50-74 54 74-28 20-26-20-26 20z" fill="' + P.cream + '"/>' +
+      '<rect x="0" y="430" width="960" height="90" fill="' + P.mint + '"/>' +
+      '<path d="M330 470l90-130 90 130z" fill="' + P.orange + '"/><path d="M400 470l20-60 20 60z" fill="' + P.deep + '"/>' +
+      '<path d="M600 470l26-44 26 44z" fill="' + P.yellow + '"/><path d="M612 470l14-26 14 26z" fill="' + P.orange + '"/><rect x="590" y="468" width="72" height="10" rx="5" fill="' + P.brown + '"/>' },
+    { label: "one-hour dinners together", n: function (h) { return h; }, svg:
+      bg(P.warm) +
+      '<circle cx="300" cy="260" r="140" fill="' + P.cream + '"/><circle cx="300" cy="260" r="100" fill="' + P.panel + '"/><ellipse cx="270" cy="240" rx="40" ry="22" fill="' + P.mid + '"/><circle cx="330" cy="280" r="26" fill="' + P.orange + '"/><circle cx="290" cy="300" r="18" fill="' + P.yellow + '"/>' +
+      '<circle cx="660" cy="260" r="140" fill="' + P.cream + '"/><circle cx="660" cy="260" r="100" fill="' + P.panel + '"/><ellipse cx="640" cy="250" rx="46" ry="26" fill="' + P.orange + '"/><ellipse cx="690" cy="290" rx="30" ry="18" fill="' + P.mint + '"/>' +
+      '<rect x="120" y="150" width="14" height="220" rx="7" fill="' + P.deep + '"/><rect x="826" y="150" width="14" height="220" rx="7" fill="' + P.deep + '"/>' +
+      '<rect x="466" y="200" width="28" height="110" rx="6" fill="' + P.cream + '"/><path d="M480 130c-18 24-18 44 0 60 18-16 18-36 0-60z" fill="' + P.yellow + '"/>' +
+      '<rect x="0" y="440" width="960" height="80" fill="' + P.rust + '" opacity=".25"/>' },
+    { label: "full nights of sleep", n: function (h) { return h / 8; }, svg:
+      bg(P.night) +
+      '<circle cx="700" cy="170" r="90" fill="' + P.cream + '"/><circle cx="740" cy="140" r="80" fill="' + P.night + '"/>' +
+      '<circle cx="160" cy="110" r="6" fill="' + P.cream + '"/><circle cx="300" cy="70" r="4" fill="' + P.cream + '"/><circle cx="420" cy="140" r="5" fill="' + P.cream + '"/><circle cx="860" cy="300" r="5" fill="' + P.cream + '"/><circle cx="540" cy="90" r="4" fill="' + P.cream + '"/>' +
+      '<path d="M180 400a70 70 0 0 1 90-90 90 90 0 0 1 170 20 60 60 0 0 1 40 110H200a60 60 0 0 1-20-40z" fill="' + P.cream + '" opacity=".9"/>' +
+      '<text x="560" y="330" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-weight="800" font-size="72" fill="' + P.yellow + '">z</text><text x="610" y="280" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-weight="800" font-size="56" fill="' + P.yellow + '">z</text><text x="650" y="240" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-weight="800" font-size="42" fill="' + P.yellow + '">z</text>' },
+    { label: "hours of music practice", n: function (h) { return h; }, svg:
+      bg(P.panel) +
+      (function () { var o = '<rect x="120" y="320" width="720" height="150" rx="18" fill="' + P.deep + '"/>'; for (var i = 0; i < 10; i++) o += '<rect x="' + (136 + i * 69) + '" y="334" width="62" height="122" rx="8" fill="' + P.cream + '"/>'; [0, 1, 3, 4, 5, 7, 8].forEach(function (i) { o += '<rect x="' + (182 + i * 69) + '" y="334" width="38" height="74" rx="6" fill="' + P.deep + '"/>'; }); return o; })() +
+      '<circle cx="300" cy="230" r="34" fill="' + P.orange + '"/><rect x="326" y="90" width="12" height="140" fill="' + P.orange + '"/><path d="M338 90q60 20 40 80" stroke="' + P.orange + '" stroke-width="12" fill="none"/>' +
+      '<circle cx="520" cy="200" r="30" fill="' + P.mid + '"/><circle cx="640" cy="170" r="30" fill="' + P.mid + '"/><rect x="542" y="70" width="12" height="130" fill="' + P.mid + '"/><rect x="662" y="40" width="12" height="130" fill="' + P.mid + '"/><path d="M542 70l132-30v28l-132 30z" fill="' + P.mid + '"/>' +
+      '<circle cx="780" cy="120" r="20" fill="' + P.yellow + '"/><rect x="796" y="40" width="8" height="80" fill="' + P.yellow + '"/>' },
+    { label: "30-minute runs", n: function (h) { return h * 2; }, svg:
+      bg(P.sky) +
+      '<circle cx="820" cy="110" r="56" fill="' + P.yellow + '"/>' +
+      '<ellipse cx="480" cy="340" rx="420" ry="150" fill="' + P.orange + '"/><ellipse cx="480" cy="340" rx="370" ry="110" fill="none" stroke="' + P.cream + '" stroke-width="5"/><ellipse cx="480" cy="340" rx="330" ry="80" fill="' + P.mint + '"/>' +
+      '<rect x="836" y="230" width="8" height="150" fill="' + P.deep + '"/>' +
+      (function () { var o = ""; for (var r = 0; r < 3; r++) for (var c = 0; c < 4; c++) o += '<rect x="' + (844 + c * 18) + '" y="' + (230 + r * 18) + '" width="18" height="18" fill="' + ((r + c) % 2 ? P.cream : P.deep) + '"/>'; return o; })() +
+      '<circle cx="420" cy="236" r="20" fill="' + P.skin3 + '"/><path d="M420 256l-10 56" stroke="' + P.deep + '" stroke-width="18" stroke-linecap="round"/><path d="M410 312l-34 30M410 312l30 34M416 272l-34 20M416 272l34-4" stroke="' + P.deep + '" stroke-width="12" stroke-linecap="round" fill="none"/>' }
+  ];
+  var picIdx = Math.floor(Math.random() * ILLOS.length);
+  var card = { canvas: null, blob: null, key: "" }, cardTimer = null;
+
+  function illoImage(i, cb) {
+    var img = new Image();
+    img.onload = function () { cb(img); };
+    img.onerror = function () { cb(null); };
+    img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520">' + ILLOS[i].svg + "</svg>");
+  }
+  function buildCard(cb) {
+    var s = current, il = ILLOS[picIdx], W = 1080, H = 1350;
+    illoImage(picIdx, function (img) {
+      var c = document.createElement("canvas"); c.width = W; c.height = H;
+      var x = c.getContext("2d"), f = "system-ui, -apple-system, Segoe UI, Roboto, sans-serif";
+      x.fillStyle = "#1d5c47"; x.fillRect(0, 0, W, H);
+      if (img) x.drawImage(img, 60, 60, 960, 520);
+      x.textAlign = "center"; x.fillStyle = "#fbfaf7";
+      x.font = "500 44px " + f; x.fillText("At " + hm(s.avg) + " a day, my screen time adds up to", W / 2, 690);
+      x.font = "800 230px " + f; x.fillText(num(s.days), W / 2, 905);
+      x.font = "600 58px " + f; x.fillText("full days a year", W / 2, 985);
+      var v = il.n(s.yearH);
+      x.fillStyle = "#f2c94c"; x.font = "600 46px " + f; x.fillText("or " + num(v, v < 10 ? 1 : 0) + " " + il.label, W / 2, 1070);
+      x.fillStyle = "#fbfaf7"; x.font = "600 44px " + f; x.fillText("What's yours?", W / 2, 1210);
+      x.globalAlpha = .8; x.font = "400 36px " + f; x.fillText("ajith.ai/screenly", W / 2, 1265);
+      cb(c);
+    });
+  }
+  function scheduleCard(delay) {
+    clearTimeout(cardTimer);
+    if (!current) return;
+    cardTimer = setTimeout(function () {
+      var key = current.avg + "|" + picIdx;
+      buildCard(function (c) {
+        card.canvas = c; card.key = key; card.blob = null;
+        var p = $("preview"); p.src = c.toDataURL("image/png"); p.hidden = false;
+        c.toBlob(function (b) { if (card.key === key) card.blob = b; }, "image/png");
+      });
+    }, delay === undefined ? 250 : delay);
   }
   function shareText() {
-    return "My screen time adds up to " + num(current.days) + " full days a year. What's yours? https://ajith.ai/screenly/";
+    var il = ILLOS[picIdx], v = il.n(current.yearH);
+    return "My screen time adds up to " + num(current.days) + " full days a year. That's " + num(v, v < 10 ? 1 : 0) + " " + il.label + ". What's yours? https://ajith.ai/screenly/";
   }
   function msg(t) { $("shareMsg").textContent = t; }
-  function showPreview(c) { var p = $("preview"); p.src = c.toDataURL("image/png"); p.hidden = false; }
   function download(c) {
     var a = document.createElement("a");
     a.href = c.toDataURL("image/png"); a.download = "screenly.png";
     document.body.appendChild(a); a.click(); a.remove();
   }
+  function withCard(cb) {
+    var key = current.avg + "|" + picIdx;
+    if (card.canvas && card.blob && card.key === key) { cb(card.canvas, card.blob); return; }
+    buildCard(function (c) {
+      card.canvas = c; card.key = key;
+      var p = $("preview"); p.src = c.toDataURL("image/png"); p.hidden = false;
+      c.toBlob(function (b) { card.blob = b; cb(c, b); }, "image/png");
+    });
+  }
 
   $("shareBtn").addEventListener("click", function () {
     if (!current) return;
-    var c = drawCard(); showPreview(c);
-    c.toBlob(function (blob) {
+    withCard(function (c, blob) {
       var file = new File([blob], "screenly.png", { type: "image/png" });
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        navigator.share({ files: [file], text: shareText() }).then(function () { msg("Shared."); }, function () { msg(""); });
+        navigator.share({ files: [file], text: shareText() }).then(function () { msg("Shared."); }, function (e) {
+          msg(e && e.name === "NotAllowedError" ? "Tap Share again to send it." : "");
+        });
       } else {
         download(c); msg("Your browser can't share images directly, so the image was saved instead.");
       }
-    }, "image/png");
+    });
   });
   $("saveBtn").addEventListener("click", function () {
     if (!current) return;
-    var c = drawCard(); showPreview(c); download(c); msg("Image saved.");
+    withCard(function (c) { download(c); msg("Image saved."); });
   });
   $("copyBtn").addEventListener("click", function () {
     if (!current) return;
@@ -373,6 +511,7 @@ footer.bottom a { color: inherit; }
 
   [hEl, mEl, ageEl].forEach(function (el) { el.addEventListener("input", render); });
   cutEl.addEventListener("input", renderCut);
+  $("nextPic").addEventListener("click", function () { picIdx = (picIdx + 1) % ILLOS.length; scheduleCard(0); });
   $("days").addEventListener("input", save);
 
   function pickOS(os) {
